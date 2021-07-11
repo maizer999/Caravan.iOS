@@ -118,7 +118,7 @@ class MarvelHomeViewController: UIViewController,UITableViewDelegate,UITableView
         // Do any additional setup after loading the view.
         self.adForest_homeData()
         self.showLoader()
-        self.addLeftBarButtonWithImage()
+//        self.addLeftBarButtonWithImage()
         self.adForest_homeData()
         self.adForest_sendFCMToken()
 

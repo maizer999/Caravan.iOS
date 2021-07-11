@@ -16,12 +16,19 @@ import FirebaseCore
 import FirebaseInstanceID
 import GoogleMobileAds
 import IQKeyboardManagerSwift
+import HidingNavigationBar
 
 var admobDelegate = AdMobDelegate()
 var currentVc: UIViewController!
+var hidingNavBarManager: HidingNavigationBarManager?
+
+var showLastAds = false
+
 
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, AddDetailDelegate, CategoryDetailDelegate, UISearchBarDelegate, MessagingDelegate,UNUserNotificationCenterDelegate, NearBySearchDelegate, BlogDetailDelegate , LocationCategoryDelegate, SwiftyAdDelegate , GADInterstitialDelegate, UIGestureRecognizerDelegate,MarvelRelatedAddDetailDelegate,MarvelAddDetailDelegate{
+    @IBOutlet weak var popUpMenu: UIView!
     
+    @IBOutlet weak var tableBottomSpace: NSLayoutConstraint!
     //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -37,8 +44,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var oltAddPost: UIButton! {
         didSet {
             oltAddPost.circularButton()
+            oltAddPost.isHidden = false
             if let bgColor = defaults.string(forKey: "mainColor") {
-                oltAddPost.backgroundColor = Constants.hexStringToUIColor(hex: bgColor)
+                oltAddPost.backgroundColor = UIColor.red
+                
             }
         }
         
@@ -109,7 +118,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        popUpMenu.isHidden   = true
+        popUpMenu.roundCorners()
+     
+//        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
+
         // self.navigationController?.isNavigationBarHidden = false
         inters = GADInterstitial(adUnitID:"ca-app-pub-2596107136418753/4126592208")
         let request = GADRequest()
@@ -121,21 +134,48 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.subscribeToTopicMessage()
         self.showLoader()
         self.adForest_homeData()
-        self.addLeftBarButtonWithImage()
-        self.navigationButtons()
+//        self.addLeftBarButtonWithImage()
+//        self.navigationButtons()
         self.adForest_homeData()
-        
+        oltAddPost.isHidden = true
         
         
     }
     
+    
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        hidingNavBarManager?.viewWillAppear(animated)
+//    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+//        hidingNavBarManager?.viewDidLayoutSubviews()
+    }
+
+     func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+//        hidingNavBarManager?.viewWillDisappear(animated)
+    }
+
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+//        hidingNavBarManager?.viewWillAppear(animated)
+
         if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-            self.oltAddPost.isHidden = false
+            self.oltAddPost.isHidden = true
         }
         currentVc = self
+        
+        addTitleView()
+//        setupNavigationBar(title: "")
+//        navigationController?.setNavigationBarHidden(true, animated: true)
+
         //self.adForest_homeData()
         
     }
@@ -217,83 +257,85 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // Maizer update navigation bar
+    
     func navigationButtons() {
         
-        //Home Button
-        let HomeButton = UIButton(type: .custom)
-        let ho = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
-        HomeButton.setBackgroundImage(ho, for: .normal)
-        HomeButton.tintColor = UIColor.white
-        HomeButton.setImage(ho, for: .normal)
-        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //            HomeButton.isHidden = true
-        //        }
-        if #available(iOS 11, *) {
-            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        } else {
-            HomeButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        }
-        HomeButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
-        let homeItem = UIBarButtonItem(customView: HomeButton)
-        if defaults.bool(forKey: "showHome") {
-            barButtonItems.append(homeItem)
-            //self.barButtonItems.append(homeItem)
-        }
-        
-        //Location Search
-        let locationButton = UIButton(type: .custom)
-        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-            locationButton.isHidden = true
-        }
-        
-        if #available(iOS 11, *) {
-            locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        }
-        else {
-            locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        }
-        let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
-        locationButton.setBackgroundImage(image, for: .normal)
-        locationButton.tintColor = UIColor.white
-        locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
-        let barButtonLocation = UIBarButtonItem(customView: locationButton)
-        if defaults.bool(forKey: "showNearBy") {
-            self.barButtonItems.append(barButtonLocation)
-        }
-        //Search Button
-        let searchButton = UIButton(type: .custom)
-        //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
-        //           searchButton.isHidden = true
-        //       }
-        if defaults.bool(forKey: "advanceSearch") == true{
-            let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
-            searchButton.setBackgroundImage(con, for: .normal)
-            searchButton.tintColor = UIColor.white
-            searchButton.setImage(con, for: .normal)
-        }else{
-            let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
-            searchButton.setBackgroundImage(con, for: .normal)
-            searchButton.tintColor = UIColor.white
-            searchButton.setImage(con, for: .normal)
-        }
-        
-        if #available(iOS 11, *) {
-            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        } else {
-            searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        }
-        searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
-        let searchItem = UIBarButtonItem(customView: searchButton)
-        if defaults.bool(forKey: "showSearch") {
-            barButtonItems.append(searchItem)
-            //self.barButtonItems.append(searchItem)
-        }
-        
-        self.navigationItem.rightBarButtonItems = barButtonItems
-        
+//        //Home Button
+//        let moreButton = UIButton(type: .custom)
+//        let ho = UIImage(named: "more_ic")?.withRenderingMode(.alwaysTemplate)
+//        moreButton.setBackgroundImage(ho, for: .normal)
+//        moreButton.tintColor = UIColor.white
+//        moreButton.setImage(ho, for: .normal)
+//        //        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//        //            HomeButton.isHidden = true
+//        //        }
+//        if #available(iOS 11, *) {
+//            searchBarNavigation.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        } else {
+//            moreButton.frame = CGRect(x: 0, y: 0, width: 10, height: 30)
+//        }
+//        moreButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+//        let homeItem = UIBarButtonItem(customView: moreButton)
+//        if defaults.bool(forKey: "showHome") {
+//            barButtonItems.append(homeItem)
+//            //self.barButtonItems.append(homeItem)
+//        }
+//
+//        //Location Search
+//        let locationButton = UIButton(type: .custom)
+//        if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//            locationButton.isHidden = true
+//        }
+//
+//        if #available(iOS 11, *) {
+//            locationButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//            locationButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        }
+//        else {
+//            locationButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        }
+//        let image = UIImage(named: "location")?.withRenderingMode(.alwaysTemplate)
+//        locationButton.setBackgroundImage(image, for: .normal)
+//        locationButton.tintColor = UIColor.white
+//        locationButton.addTarget(self, action: #selector(onClicklocationButton), for: .touchUpInside)
+//        let barButtonLocation = UIBarButtonItem(customView: locationButton)
+//        if defaults.bool(forKey: "showNearBy") {
+//            self.barButtonItems.append(barButtonLocation)
+//        }
+//        //Search Button
+//        let searchButton = UIButton(type: .custom)
+//        //       if defaults.bool(forKey: "isGuest") || defaults.bool(forKey: "isLogin") == false {
+//        //           searchButton.isHidden = true
+//        //       }
+//        if defaults.bool(forKey: "advanceSearch") == true{
+//            let con = UIImage(named: "controls")?.withRenderingMode(.alwaysTemplate)
+//            searchButton.setBackgroundImage(con, for: .normal)
+//            searchButton.tintColor = UIColor.white
+//            searchButton.setImage(con, for: .normal)
+//        }else{
+//            let con = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
+//            searchButton.setBackgroundImage(con, for: .normal)
+//            searchButton.tintColor = UIColor.white
+//            searchButton.setImage(con, for: .normal)
+//        }
+//
+//        if #available(iOS 11, *) {
+//            searchBarNavigation.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//            searchBarNavigation.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        } else {
+//            searchButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        }
+//        searchButton.addTarget(self, action: #selector(actionSearch), for: .touchUpInside)
+//        let searchItem = UIBarButtonItem(customView: searchButton)
+//        if defaults.bool(forKey: "showSearch") {
+//            barButtonItems.append(searchItem)
+//            //self.barButtonItems.append(searchItem)
+//        }
+//
+//        self.navigationItem.rightBarButtonItems = barButtonItems
+//
     }
     
     @objc func actionHome() {
@@ -313,40 +355,40 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- Search Controller
     
-    @objc func actionSearch(_ sender: Any) {
-        
-        if defaults.bool(forKey: "advanceSearch") == true{
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
-            self.pushVC(proVc, completion: nil)
-        }else{
-            
-            //setupNavigationBar(title: "okk...")
-            
-            keyboardManager.enable = true
-            if isNavSearchBarShowing {
-                navigationItem.titleView = nil
-                self.searchBarNavigation.text = ""
-                self.backgroundView.removeFromSuperview()
-                self.addTitleView()
-                
-            } else {
-                self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-                self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-                self.backgroundView.isOpaque = true
-                let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-                tap.delegate = self
-                self.backgroundView.addGestureRecognizer(tap)
-                self.backgroundView.isUserInteractionEnabled = true
-                self.view.addSubview(self.backgroundView)
-                self.adNavSearchBar()
-            }
-        }
-        
-    }
+//    @objc func actionSearch(_ sender: Any) {
+//
+//        if defaults.bool(forKey: "advanceSearch") == true{
+//            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//            let proVc = storyBoard.instantiateViewController(withIdentifier: "AdvancedSearchController") as! AdvancedSearchController
+//            self.pushVC(proVc, completion: nil)
+//        }else{
+//
+//            //setupNavigationBar(title: "okk...")
+//
+//            keyboardManager.enable = true
+//            if isNavSearchBarShowing {
+//                navigationItem.titleView = nil
+//                self.searchBarNavigation.text = ""
+//                self.backgroundView.removeFromSuperview()
+//                self.addTitleView()
+//
+//            } else {
+//                self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+//                self.backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+//                self.backgroundView.isOpaque = true
+//                let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//                tap.delegate = self
+//                self.backgroundView.addGestureRecognizer(tap)
+//                self.backgroundView.isUserInteractionEnabled = true
+//                self.view.addSubview(self.backgroundView)
+//                self.adNavSearchBar()
+//            }
+//        }
+//
+//    }
     
     @objc func handleTap(_ gestureRocognizer: UITapGestureRecognizer) {
-        self.actionSearch("")
+//        self.actionSearch("")
     }
     
     func adNavSearchBar() {
@@ -359,7 +401,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchBarNavigation.delegate = self
         self.isNavSearchBarShowing = true
         searchBarNavigation.isHidden = false
-        navigationItem.titleView = searchBarNavigation
+//        navigationItem.titleView = searchBarNavigation
         searchBarNavigation.becomeFirstResponder()
     }
     
@@ -426,7 +468,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let position = addPosition[section]
             if position == "sliders" {
-                value = dataArray.count
+                // maizer to hide slider
+                
+                value =  (showLastAds) ? ( dataArray.count) :  0
+//                value = dataArray.count
             }
             else {
                 value = 1
@@ -505,8 +550,15 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if let subTitle = objData.subTitle {
                         cell.lblSubTitle.text = subTitle
                     }
+//                    maizer
                     if let placeHolder = objData.placeholder {
-                        cell.txtSearch.placeholder = placeHolder
+                        cell.txtSearch.placeholder = "البحث في التطبيق"
+                   
+                        cell.adsButton.addTarget(self, action: #selector(hideCategory), for: .touchUpInside)
+                        cell.categoryButton.addTarget(self, action: #selector(hideAds), for: .touchUpInside)
+                        cell.packagesButton.addTarget(self, action: #selector(showPackages), for: .touchUpInside)
+                 
+                 
                     }
                     
                     if UserDefaults.standard.bool(forKey: "isRtl") {
@@ -519,7 +571,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     if objData.isShowLocation == false{
                         cell.viewLoc.isHidden = true
-                        cell.topConstraintSearch.constant =  -40
+//                        cell.topConstraintSearch.constant =  -40
                     }
                     
                 }
@@ -545,13 +597,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     return cell
                 }
+                
+                
             case "cat_icons":
+                
                 let cell: CategoriesTableCell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableCell", for: indexPath) as! CategoriesTableCell
                 let data = AddsHandler.sharedInstance.objHomeData
                 
                 
                 if self.isShowCategoryButton == true {
-                    cell.oltViewAll.isHidden = false
+                    cell.oltViewAll.isHidden = true
                     if let viewAllText = data?.catIconsColumnBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
@@ -608,6 +663,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
             case "latest_ads":
+                // maizer to last ads
+//                value =  (showLastAds) ? ( dataArray.count) :  0
+//
+                isShowLatest = showLastAds ? true : false
+                
                 if isShowLatest {
                     if latestHorizontalSingleAd == "horizental"{
                         let cell: MarvelAdsTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "MarvelAdsTableViewCell", for: indexPath) as! MarvelAdsTableViewCell
@@ -674,7 +734,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let data = AddsHandler.sharedInstance.objHomeData
                 
                 if self.isShowLocationButton {
-                    cell.oltViewAll.isHidden = false
+                    cell.oltViewAll.isHidden = true
                     if let viewAllText = data?.catLocationsBtn.text {
                         cell.oltViewAll.setTitle(viewAllText, for: .normal)
                     }
@@ -795,7 +855,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             cell.lblSubTitle.text = subTitle
                         }
                         if let placeHolder = objData.placeholder {
-                            cell.txtSearch.placeholder = placeHolder
+                            cell.txtSearch.placeholder = "البحث في التطبيق"
                         }
                     }
                     return cell
@@ -868,7 +928,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             cell.lblSubTitle.text = subTitle
                         }
                         if let placeHolder = objData.placeholder {
-                            cell.txtSearch.placeholder = placeHolder
+                            cell.txtSearch.placeholder = "البحث في التطبيق"
                         }
                     }
                     return cell
@@ -943,7 +1003,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             cell.lblSubTitle.text = subTitle
                         }
                         if let placeHolder = objData.placeholder {
-                            cell.txtSearch.placeholder = placeHolder
+                            cell.txtSearch.placeholder = "البحث في التطبيق"
                         }
                     }
                     return cell
@@ -1010,15 +1070,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if position == "search_Cell" {
                 let objData = searchSectionArray[indexPath.row]
                 if objData.isShow {
-                    height = 60
+                    // maizer
+                    height = 200
                 } else {
                     height = 0
                 }
             }
             else if position == "cat_icons" {
-                if Constants.isiPadDevice {
-                    height = 230
-                } else {
+//                if Constants.isiPadDevice {
+//                    height = 230
+//                } else {
                     if numberOfColumns == 3 {
                         let itemHeight = CollectionViewSettings.getItemWidth(boundWidth: tableView.bounds.size.width)
                         // maizer
@@ -1049,9 +1110,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         } else {
                             totalHeight = ((itemHeight * CGFloat(totalRow)) + totalTopBottomOffSet + totalSpacing + 210)
                         }
-                        height =  totalHeight
+                      
+                        height = totalHeight 
+                        
+//                        height =  totalHeight
                     }
-                }
+                height = !showLastAds ? totalHeight : 0
+//                }
             }
             else if position == "cat_locations"  {
                 if categoryArray.isEmpty {
@@ -1144,10 +1209,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     height = 270
                 }
                 else if section == 2 {
-                    if Constants.isiPadDevice {
-                        height = 220
-                    }
-                    else {
+//                    if Constants.isiPadDevice {
+//                        height = 220
+//                    }
+//                    else {
                         if numberOfColumns == 3 {
                             let itemHeight = CollectionViewSettings.getItemWidth(boundWidth: tableView.bounds.size.width)
                             let totalRow = ceil(CGFloat(categoryArray.count) / CollectionViewSettings.column)
@@ -1171,7 +1236,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             }
                             height =  totalHeight
                         }
-                    }
+//                    }
                 }
                 else if section == 3 {
                     height = 270
@@ -1187,9 +1252,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
                 else if section == 1 {
-                    if Constants.isiPadDevice {
-                        height = 220
-                    } else {
+//                    if Constants.isiPadDevice {
+//                        height = 220
+//                    } else {
                         if numberOfColumns == 3 {
                             let itemHeight = CollectionViewSettings.getItemWidth(boundWidth: tableView.bounds.size.width)
                             let totalRow = ceil(CGFloat(categoryArray.count) / CollectionViewSettings.column)
@@ -1213,7 +1278,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             }
                             height =  totalHeight
                         }
-                    }
+//                    }
                 }
                 else if section ==  2 {
                     height = 270
@@ -1231,10 +1296,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         height = 0
                     }
                 } else if section == 1 {
-                    if Constants.isiPadDevice {
-                        height = 220
-                    }
-                    else {
+//                    if Constants.isiPadDevice {
+//                        height = 220
+//                    }
+//                    else {
                         if numberOfColumns == 3 {
                             let itemHeight = CollectionViewSettings.getItemWidth(boundWidth: tableView.bounds.size.width)
                             let totalRow = ceil(CGFloat(categoryArray.count) / CollectionViewSettings.column)
@@ -1258,7 +1323,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             }
                             height =  totalHeight
                         }
-                    }
+//                    }
                 }
                 else if section == 2 {
                     height = 270
@@ -1397,9 +1462,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                self.title = successResponse.data.pageTitle
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 39, height: 39))
                 imageView.contentMode = .scaleAspectFit
-                let image = UIImage(named: "dlogo")
+                let image = UIImage(named: "hlogo1")
                 imageView.image = image
                 tabController?.navigationItem.titleView = imageView
+                
+                let button = UIButton()
+                button.frame = CGRect(x: 0, y: 0, width: 51, height: 31)
+                button.setImage(UIImage(named: "hlogo"), for: .normal)
+                    
+//                    .setImage(UIImage(named: "hlogo"), forState: .Normal)
+//                button.addTarget(self, action: #selector(self.rightNavBarItemAction)), forControlEvents: .TouchUpInside)
+
+                let barButton = UIBarButtonItem()
+                barButton.customView = button
+//                self.navigationItem.rightBarButtonItem = barButton
+                
                 
                 
                 if let column = successResponse.data.catIconsColumn {
@@ -1556,6 +1633,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentVC(alert)
         }
     }
+    @objc func hideCategory(sender : UIButton){
+        showLastAds = true
+        tableView.reloadData()
+    }
+    
+    @objc func hideAds(){
+        showLastAds = false
+        tableView.reloadData()
+    }
+    
+    @objc func showPackages(){
+        let packageView = self.storyboard?.instantiateViewController(withIdentifier: PackagesController.className) as! PackagesController
+        self.navigationController?.pushViewController(packageView, animated: true)
+    }
+    
     
     @objc func nokri_showNavController1(){
         
@@ -1633,3 +1725,51 @@ extension UIViewController {
     }
 }
 
+// maizer navigation bar 
+
+extension HomeController:UIScrollViewDelegate{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+            //scrolling down
+            changeTabBar(hidden: true, animated: true)
+        }
+        else{
+            //scrolling up
+            changeTabBar(hidden: false, animated: true)
+        }
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+            //scrolling down
+            changeTabBar(hidden: true, animated: false)
+        }
+        else{
+            //scrolling up
+            changeTabBar(hidden: false, animated: false)
+        }
+    }
+    func changeTabBar(hidden:Bool, animated: Bool){
+        let tabBar = self.tabBarController?.tabBar
+        if hidden == true {
+            
+            tabBar?.isHidden = true
+            popUpMenu.isHidden = false
+            tableBottomSpace.constant = -50
+            
+        } else {
+            tabBar?.isHidden = false
+            popUpMenu.isHidden = true
+            tableBottomSpace.constant = 0
+
+        }
+        
+//        let offset = (hidden ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.height - (tabBar?.frame.size.height)! )
+//        if offset == tabBar?.frame.origin.y {return}
+//        print("changing origin y position")
+//        let duration:TimeInterval = (animated ? 0.5 : 0.0)
+//        UIView.animate(withDuration: duration,
+//                       animations: {tabBar!.frame.origin.y = offset},
+//                       completion:nil)
+    }
+}

@@ -1049,14 +1049,14 @@ extension UIViewController {
         } else {
             leftButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         }
-        leftButton.setBackgroundImage(UIImage(named: "menu") , for: .normal)
+        leftButton.setBackgroundImage(UIImage(named: "menu1") , for: .normal)
         if UserDefaults.standard.bool(forKey: "isRtl") {
             leftButton.addTarget(self, action: #selector(self.toggleRight), for: .touchUpInside)
         } else {
              leftButton.addTarget(self, action: #selector(self.toggleLeft), for: .touchUpInside)
         }
         let barButton = UIBarButtonItem(customView: leftButton)
-        navigationItem.leftBarButtonItem = barButton
+//        navigationItem.leftBarButtonItem = barButton
     }
     
     public func addRightBarButtonWithImage() {
@@ -1068,10 +1068,10 @@ extension UIViewController {
         else {
             leftButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         }
-        leftButton.setBackgroundImage(UIImage(named: "menu"), for: .normal)
+        leftButton.setBackgroundImage(UIImage(named: "menu1"), for: .normal)
         leftButton.addTarget(self, action: #selector(self.toggleRight), for: .touchUpInside)
         let barButton = UIBarButtonItem(customView: leftButton)
-        navigationItem.rightBarButtonItem = barButton
+//        navigationItem.rightBarButtonItem = barButton
     }
     
     @objc public func toggleLeft() {

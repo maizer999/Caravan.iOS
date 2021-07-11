@@ -119,7 +119,7 @@ class MultiHomeViewController: UIViewController,UITableViewDelegate,UITableViewD
         self.adForest_homeData()
         self.showLoader()
         self.addLeftBarButtonWithImage()
-        self.navigationButtons()
+//        self.navigationButtons()
         self.adForest_homeData()
         self.adForest_sendFCMToken()
 

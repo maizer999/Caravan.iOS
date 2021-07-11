@@ -208,11 +208,11 @@ class OverlayView: UIViewController, UIImagePickerControllerDelegate,UINavigatio
         documentPicker.delegate = self
         documentPicker.view.tintColor = UIColor(hex:mainColor!)
         documentPicker.view.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.1176470588, blue: 0.1176470588, alpha: 1)
-        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().isTranslucent = false
     
         documentPicker.modalPresentationStyle = .fullScreen
         present(documentPicker, animated: true) {
-            UINavigationBar.appearance().tintColor = UIColor(hex:self.mainColor!)
+//            UINavigationBar.appearance().tintColor = UIColor(hex:self.mainColor!)
         }
     }
     

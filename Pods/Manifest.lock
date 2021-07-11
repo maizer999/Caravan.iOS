@@ -131,6 +131,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.12)
   - GTMSessionFetcher/Full (1.1.12):
     - GTMSessionFetcher/Core (= 1.1.12)
+  - HidingNavigationBar (2.0.1)
   - ImageSlideshow (1.8.1):
     - ImageSlideshow/Core (= 1.8.1)
   - ImageSlideshow/Alamofire (1.8.1):
@@ -194,6 +195,7 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - GoogleSignIn
+  - HidingNavigationBar (~> 2.0)
   - ImageSlideshow
   - ImageSlideshow/Alamofire
   - IQKeyboardManagerSwift
@@ -254,6 +256,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - HidingNavigationBar
     - ImageSlideshow
     - IQKeyboardManagerSwift
     - JGProgressHUD
@@ -318,6 +321,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  HidingNavigationBar: 82c06978041080f0e4d97095563414a4367b71c6
   ImageSlideshow: 634865d7d4e96f21e3830a31b51bde768cc94cea
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   JGProgressHUD: 12b20a8f4ffe05258f8635c1ab92816e451f904d
@@ -346,6 +350,6 @@ SPEC CHECKSUMS:
   YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
   ZGTooltipView: 729e358044530a05be00c8c1e1092e81db491996
 
-PODFILE CHECKSUM: 863b67c7ed4fa4c03665b736b1e51271fe325edf
+PODFILE CHECKSUM: b0ffe64e8c78f84fb67f7bb4851088abbcfd8173
 
 COCOAPODS: 1.10.1

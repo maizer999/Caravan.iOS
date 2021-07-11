@@ -1,0 +1,6 @@
+framework module Pods_caravan {
+  umbrella header "Pods-caravan-umbrella.h"
+
+  export *
+  module * { export * }
+}

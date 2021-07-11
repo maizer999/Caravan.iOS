@@ -27,6 +27,17 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
             lblNoData.isHidden = true
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // maizer remove back
+            super.viewWillAppear(true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
+        self.navigationItem.backBarButtonItem?.title = ""
+        
+
+        }
+    
+    
     @IBOutlet weak var oltAdPost: UIButton! {
         didSet {
             oltAdPost.circularButton()
@@ -81,6 +92,9 @@ class PackagesController: UIViewController, UITableViewDelegate, UITableViewData
         }
        self.adMob()
        navigationButtons()
+        
+        let backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+          navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {

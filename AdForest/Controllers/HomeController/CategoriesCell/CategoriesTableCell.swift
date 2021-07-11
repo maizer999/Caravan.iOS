@@ -104,11 +104,11 @@ class CategoriesTableCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             else if Constants.isIphonePlus {
                 let itemWidth = CollectionViewSettings.getItemWidth(boundWidth: collectionView.bounds.size.width)
 //                return CGSize(width: itemWidth - 10, height: itemWidth)
-                return CGSize(width: 175, height: 210)
+                return CGSize(width: 175, height: 200)
             }
             else {
                 let itemWidth = CollectionViewSettings.getItemWidth(boundWidth: collectionView.bounds.size.width)
-                return CGSize(width: 175, height: 210)
+                return CGSize(width: 175, height: 200)
 //                return CGSize(width: itemWidth, height: itemWidth + 10)
             }
         } else {

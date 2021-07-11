@@ -26,7 +26,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tableFooterView = UIView()
-            tableView.separatorStyle = .none
+//            tableView.separatorStyle = .none
             
             tableView.register(UINib(nibName: ShareCell.className, bundle: nil), forCellReuseIdentifier: ShareCell.className)
             tableView.register(UINib(nibName: YouTubeVideoCell.className, bundle: nil), forCellReuseIdentifier: YouTubeVideoCell.className)

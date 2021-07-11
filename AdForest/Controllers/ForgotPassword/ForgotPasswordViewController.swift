@@ -43,7 +43,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, NVAct
     var contactAdmin = ""
     var contactPageTitle = ""
     var contactPageUrl = ""
-    let storyboard2 = UIStoryboard(name: "Main2", bundle: nil)
+    let storyboard2 = UIStoryboard(name: "Main", bundle: nil)
     
     
     

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_AdForestVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_AdForestVersionString[];
+FOUNDATION_EXPORT double HidingNavigationBarVersionNumber;
+FOUNDATION_EXPORT const unsigned char HidingNavigationBarVersionString[];
 

@@ -11,6 +11,15 @@ import DropDown
 
 class SearchSectionCell: UITableViewCell, UITextFieldDelegate,refreshdata {
     
+    let blueColor = UIColor(red: (49/255.0), green: (123/255.0), blue: (205/255.0), alpha: 1.0)
+
+    @IBOutlet weak var separator: UIView!
+    @IBOutlet weak var adsButton: UIButton!
+    @IBOutlet weak var categoryButton: UIButton!
+    @IBOutlet weak var packagesButton: UIButton!
+   
+    
+    
     @IBOutlet weak var viewBg: UIView!
     @IBOutlet weak var imgPicture: UIImageView!
     @IBOutlet weak var txtSearch: UITextField!{
@@ -29,20 +38,55 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate,refreshdata {
     @IBOutlet weak var containerViewSearch: UIView! {
         didSet {
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
-                containerViewSearch.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//                containerViewSearch.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
             }
         }
     }
     @IBOutlet weak var lineView: UIView! {
         didSet {
             if let mainColor = UserDefaults.standard.string(forKey: "mainColor") {
-                lineView.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//                lineView.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
             }
         }
     }
     
     @IBOutlet weak var btnLoc: UIButton!
     
+  
+   
+    @IBAction func categoryAction(_ sender: UIButton) {
+        
+        packagesButton.setTitleColor(.black , for: .normal)
+        categoryButton.setTitleColor(blueColor, for: .normal)
+        adsButton.setTitleColor(.black, for: .normal)
+    
+        
+        separator.frame.origin.x    = sender.frame.origin.x
+        separator.frame.size.width  = sender.bounds.width
+
+
+    }
+    
+    @IBAction func PackagesAction(_ sender: UIButton) {
+        packagesButton.setTitleColor(blueColor , for: .normal)
+        categoryButton.setTitleColor(.black, for: .normal)
+        adsButton.setTitleColor     (.black, for: .normal)
+    
+        separator.frame.origin.x    = sender.frame.origin.x
+        separator.frame.size.width  = sender.bounds.width
+
+    }
+    
+    @IBAction func adsAction(_ sender: UIButton) {
+        adsButton.setTitleColor(blueColor , for: .normal)
+        categoryButton.setTitleColor(.black, for: .normal)
+        packagesButton.setTitleColor(.black , for: .normal)
+ 
+        separator.frame.origin.x    = sender.frame.origin.x
+        separator.frame.size.width  = sender.bounds.width
+
+
+    }
     
     @IBOutlet weak var viewLoc: UIView!
     @IBOutlet weak var txtFielLoc: UITextField!
@@ -75,14 +119,18 @@ class SearchSectionCell: UITableViewCell, UITextFieldDelegate,refreshdata {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        containerViewtextField.layer.cornerRadius=txtSearch.frame.size.height/2;
+//        containerViewtextField.backgroundColor = UIColor.red
+        containerViewtextField.clipsToBounds = true
+        
         if UserDefaults.standard.bool(forKey: "isRtl") {
             txtSearch.textAlignment = .right
             lblTitle.textAlignment = .right
             lblSubTitle.textAlignment = .right
         } else {
             txtSearch.textAlignment = .left
-            lblTitle.textAlignment = .left
-            lblSubTitle.textAlignment = .left
+            lblTitle.textAlignment = .right
+            lblSubTitle.textAlignment = .right
         }
         
         viewLoc.roundCorners()

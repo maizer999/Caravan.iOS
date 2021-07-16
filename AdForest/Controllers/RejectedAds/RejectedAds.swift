@@ -257,8 +257,8 @@ extension RejectedAds: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         cell.oltEdit.setTitle(textEdit, for: .normal)
         cell.btnEdit = {[unowned self] () in
             let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: AadPostController.className) as! AadPostController
-            editAdVC.isFromEditAd = true
-            editAdVC.ad_id = objData.adId
+            editAdVC.isFromEditAdAAA = true
+            editAdVC.ad_idAAA = objData.adId
             self.navigationController?.pushViewController(editAdVC, animated: true)
         }
         return cell

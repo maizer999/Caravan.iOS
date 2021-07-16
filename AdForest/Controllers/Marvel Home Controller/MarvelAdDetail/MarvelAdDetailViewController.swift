@@ -638,8 +638,8 @@ var fromAdDetail = false
 
                     cell.btnEdit = { () in
                         let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: AadPostController.className) as! AadPostController
-                        editAdVC.isFromEditAd = true
-                        editAdVC.ad_id = self.ad_id
+                        editAdVC.isFromEditAdAAA = true
+                        editAdVC.ad_idAAA = self.ad_id
                         self.navigationController?.pushViewController(editAdVC, animated: true)
                     }
                 }

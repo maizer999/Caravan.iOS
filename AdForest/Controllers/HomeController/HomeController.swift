@@ -1387,6 +1387,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- IBActions
     @IBAction func actionAddPost(_ sender: UIButton) {
         
+        print("Not login screen ")
         let notVerifyMsg = UserDefaults.standard.string(forKey: "not_Verified")
         let can = UserDefaults.standard.bool(forKey: "can")
         
@@ -1397,6 +1398,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let msg = self.defaults.string(forKey: "notLogin") {
                 msgLogin = msg
             }
+            self.appDelegate.moveToLogin()
             
             let alert = Constants.showBasicAlert(message: msgLogin)
             self.presentVC(alert)

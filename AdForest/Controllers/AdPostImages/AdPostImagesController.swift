@@ -13,8 +13,133 @@ import Alamofire
 import OpalImagePicker
 import UITextField_Shake
 import JGProgressHUD
+import TextFieldEffects
 
-class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount {
+
+class AdPostImagesController: UIViewController, UITableViewDelegate, UITableViewDataSource, NVActivityIndicatorViewable, OpalImagePickerControllerDelegate, UINavigationControllerDelegate, textFieldValueDelegate,UIImagePickerControllerDelegate,imagesCount , SubCategoryDelegate, UITextFieldDelegate {
+
+  
+    
+    @IBOutlet weak var oltPopup: UIButton! {
+        didSet {
+            oltPopup.setTitleColor(UIColor.darkGray, for: .normal)
+//            ViewCategories.layer.cornerRadius = 4.0
+//            ViewCategories.layer.borderWidth = 1.0
+//            ViewCategories.layer.borderColor = UIColor.black.cgColor
+//            ViewCategories.bounds = CGRect(x: 0, y: 0, width: 10, height: 10);
+//            oltPopup.titleEdgeInsets = UIEdgeInsetsMake(10,10,10,10)
+
+
+        }
+    }
+    
+    var selectedKey = ""
+    var selectedValue = ""
+    var fieldName = ""
+    var isShowArr = [Bool]()
+    var isShow = true
+    var delegatePopup: PopupValueChangeDelegate?
+    var isBidSelected = true
+    var IsPaySelected = true
+    var IsImageSelected = true
+    var delegateText : textFieldValueDelegate?
+    var btnPopUpAction: (()->())?
+    
+    
+    @IBOutlet weak var txtType: UITextField! {
+        didSet {
+            txtType.delegate = self
+
+            if let mainColor = defaults.string(forKey: "mainColor") {
+//                txtType.borderActiveColor = Constants.hexStringToUIColor(hex: mainColor)
+            
+            }
+        }
+    }
+    //MARK:- Delegate Function
+    func subCategoryDetails(name: String, id: Int, hasSubType: Bool, hasTempelate: Bool, hasCatTempelate: Bool) {
+        print(name, id, hasSubType, hasTempelate, hasCatTempelate)
+        if hasSubType {
+            let param: [String: Any] = ["subcat": id]
+            print(param)
+            self.adForest_subCategoryData(param: param as NSDictionary)
+        }
+        else {
+            self.oltPopup.setTitle(name, for: .normal)
+            self.selectedKey = String(id)
+            self.selectedValue = name
+            self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: name, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow)
+
+        }
+        if hasCatTempelate {
+            if hasTempelate {
+                let param: [String: Any] = ["cat_id" : id]
+                print(param)
+                self.adForest_dynamicFields(param: param as NSDictionary)
+            }
+        }
+    }
+    
+    @IBOutlet weak var Hoshisample: HoshiTextField!{
+        didSet {
+            Hoshisample.delegate = self
+
+            if let mainColor = defaults.string(forKey: "mainColor") {
+//                txtType.borderActiveColor = Constants.hexStringToUIColor(hex: mainColor)
+                
+            }
+        }
+    }
+    
+    //MARK:- IBActions
+    @IBAction func textChange(_ sender: HoshiTextField) {
+        if let text = sender.text {
+            delegateText?.changeText(value: text, fieldTitle: fieldName)
+        }
+    }
+    
+    
+    //MARK:- API Call
+    
+    func adForest_dynamicFields(param: NSDictionary) {
+        let adPostVC = AadPostController()
+        adPostVC.showLoader()
+        AddsHandler.adPostDynamicFields(parameter: param, success: { (successResponse) in
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            if successResponse.success {
+            AddsHandler.sharedInstance.objAdPostData = successResponse.data.fields
+            AddsHandler.sharedInstance.adPostImagesArray = successResponse.data.adImages
+
+            }
+            else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.appDel.presentController(ShowVC: alert)
+            }
+            
+            
+            
+//            var a = UserDefaults.standard.string(forKey: "is")
+//            if a != "1"{
+//                if successResponse.isBid == true{
+//                    //UserDefaults.standard.set(true, forKey: "isBid")
+//                    UserDefaults.standard.set("1", forKey: "is")
+//                    self.isBidSelected = true
+//                }else{
+//                    //UserDefaults.standard.set(false, forKey: "isBid")
+//                    UserDefaults.standard.set("1", forKey: "is")
+//                    self.isBidSelected = false
+//                }
+//            }
+          
+           
+            //UserDefaults.standard.set(successResponse.isBid, forKey: "isBid")
+            
+            }) { (error) in
+             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.appDel.presentController(ShowVC: alert)
+        }
+    }
  
     
    //textViewValueDelegate
@@ -81,6 +206,9 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     var isEditStart  = false
     var priceHide = ""
     var calledFromViewDidLoad = false;
+    
+    let appDel = UIApplication.shared.delegate as! AppDelegate
+    
     //MARK:- View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,6 +294,37 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
     //MARK: - Custom
     func showLoader() {
         self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
+    }
+    
+    @IBAction func actionPopup(_ sender: Any) {
+        self.btnPopUpAction?()
+    }
+    
+    // Sub category data
+    func adForest_subCategoryData(param: NSDictionary) {
+        let adPostVC = AadPostController()
+        adPostVC.showLoader()
+        AddsHandler.adPostSubcategory(parameter: param, success: { (successResponse) in
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            if successResponse.success {
+                AddsHandler.sharedInstance.objSearchCategory = successResponse.data
+                let seacrhCatVC = self.storyboard?.instantiateViewController(withIdentifier: "SearchCategoryDetail") as! SearchCategoryDetail
+                seacrhCatVC.dataArray = successResponse.data.values
+                seacrhCatVC.modalPresentationStyle = .overCurrentContext
+                seacrhCatVC.modalTransitionStyle = .crossDissolve
+                seacrhCatVC.delegate = self
+                self.appDel.presentController(ShowVC: seacrhCatVC)
+              //UserDefaults.standard.set(successResponse.isBid, forKey: "isBid")
+            }
+            else {
+                let alert = Constants.showBasicAlert(message: successResponse.message)
+                self.appDel.presentController(ShowVC: alert)
+            }
+        }) { (error) in
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+            let alert = Constants.showBasicAlert(message: error.message)
+            self.appDel.presentController(ShowVC: alert)
+        }
     }
     
     func forwardButton() {

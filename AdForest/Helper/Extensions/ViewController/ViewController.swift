@@ -182,33 +182,33 @@ extension UIViewController {
     }
     
     @objc open func keyboardDidShowNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let valueAAA = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
-            let frame = value.cgRectValue
+            let frame = valueAAA.cgRectValue
             keyboardDidShowWithFrame(frame)
         }
     }
     
     @objc open func keyboardWillShowNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let valueAAA = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
-            let frame = value.cgRectValue
+            let frame = valueAAA.cgRectValue
             keyboardWillShowWithFrame(frame)
         }
     }
     
     @objc open func keyboardWillHideNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let valueAAA = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
-            let frame = value.cgRectValue
+            let frame = valueAAA.cgRectValue
             keyboardWillHideWithFrame(frame)
         }
     }
     
     @objc open func keyboardDidHideNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let valueAAA = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
-            let frame = value.cgRectValue
+            let frame = valueAAA.cgRectValue
             keyboardDidHideWithFrame(frame)
         }
     }

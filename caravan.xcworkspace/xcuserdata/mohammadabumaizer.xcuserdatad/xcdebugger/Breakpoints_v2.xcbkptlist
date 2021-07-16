@@ -46,11 +46,19 @@
             symbolName = "*0x10cf8df2c">
             <Locations>
                <Location
+                  uuid = "EC10546B-61B2-4D3D-9FA2-C711FAB38FD8 - da25355dc6d78b6e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
+                  symbolName = "_OBJC_$_INSTANCE_METHODS_FIRCreateAuthURIRequest"
+                  moduleName = "caravan"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "0">
+                  urlString = "file:///Users/mohammadabumaizer/Downloads/main_files/adforest/AdForest/Pods/FirebaseAuth/FirebaseAuth/Sources/Backend/RPC/FIRCreateAuthURIRequest.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "172">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -314,16 +322,192 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "78CFE824-65C0-48B8-9888-0F57993E7C8E"
+            uuid = "F9E46E46-6011-4048-AC05-1301A808D966"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AdPostImages/AdPostImagesController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "actionPopup(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "44AE96D3-8408-4A27-BAB1-14B6FD22573C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "onForwardButtonClciked()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0BF745C6-FB81-4D56-A67D-F06535228560"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "onForwardButtonClciked()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0BF745C6-FB81-4D56-A67D-F06535228560 - 48890069c4f65000"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "caravan.AadPostController.onForwardButtonClciked() -&gt; ()"
+                  moduleName = "caravan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mohammadabumaizer/Downloads/main_files/adforest/AdForest/AdForest/Controllers/AadPost/AadPostController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "304"
+                  endingLineNumber = "304"
+                  offsetFromSymbolStart = "12122">
+               </Location>
+               <Location
+                  uuid = "0BF745C6-FB81-4D56-A67D-F06535228560 - 48890069c4f65000"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "caravan.AadPostController.onForwardButtonClciked() -&gt; ()"
+                  moduleName = "caravan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mohammadabumaizer/Downloads/main_files/adforest/AdForest/AdForest/Controllers/AadPost/AadPostController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "304"
+                  endingLineNumber = "304"
+                  offsetFromSymbolStart = "18572">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E9F33B2-F2CE-4FD6-8FCE-E28A1C5589D6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "onForwardButtonClciked()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC3D8F90-6EA3-4B3F-8223-8C01BBE8D0AE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
+            landmarkName = "adForest_adPost(param:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF6E10A2-8A77-4877-AF4D-3CC7069CB1B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "620"
+            endingLineNumber = "620"
+            landmarkName = "adForest_dynamicFields(param:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DF6E10A2-8A77-4877-AF4D-3CC7069CB1B8 - 2c6c6d24d411f6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "caravan.AadPostController.adForest_dynamicFields(param: __C.NSDictionary) -&gt; ()"
+                  moduleName = "caravan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mohammadabumaizer/Downloads/main_files/adforest/AdForest/AdForest/Controllers/AadPost/AadPostController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "620"
+                  endingLineNumber = "620"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "DF6E10A2-8A77-4877-AF4D-3CC7069CB1B8 - 66da0c7dfad5a168"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (caravan.AdPostRoot) -&gt; () in caravan.AadPostController.adForest_dynamicFields(param: __C.NSDictionary) -&gt; ()"
+                  moduleName = "caravan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mohammadabumaizer/Downloads/main_files/adforest/AdForest/AdForest/Controllers/AadPost/AadPostController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "621"
+                  endingLineNumber = "621"
+                  offsetFromSymbolStart = "166">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "632F47C0-68FB-4045-87F0-C17F170DCE99"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "621"
+            endingLineNumber = "621"
+            landmarkName = "adForest_dynamicFields(param:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20FC9D05-9EC5-4C91-BD29-FFB0F47CA4D3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdForest/Controllers/AadPost/AadPostController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "623"
+            endingLineNumber = "623"
+            landmarkName = "adForest_dynamicFields(param:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

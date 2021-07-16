@@ -14,6 +14,7 @@
 		0007E28026014FBB006A10DD /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0007E27726014F55006A10DD /* Cairo-Regular.ttf */; };
 		0007E28126014FBB006A10DD /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0007E27826014F55006A10DD /* Cairo-SemiBold.ttf */; };
 		0066B3DA2604017C00EA8136 /* dlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0066B3D92604017B00EA8136 /* dlogo.png */; };
+		00926105269F718F00153798 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00926104269F718F00153798 /* CustomLabel.swift */; };
 		00B618412672B01F00C8BE58 /* HomeController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B618402672B01F00C8BE58 /* HomeController2.swift */; };
 		00D6A9D7260A8B6A0030FC3A /* hlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 00D6A9D6260A8B6A0030FC3A /* hlogo.png */; };
 		0703FD5E2212B2BF00886A2A /* AdpostRadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */; };
@@ -695,6 +696,7 @@
 		0007E27A26014F55006A10DD /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
 		005B529425FBDE12001E957C /* foodiesRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = foodiesRelease.entitlements; sourceTree = "<group>"; };
 		0066B3D92604017B00EA8136 /* dlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dlogo.png; sourceTree = "<group>"; };
+		00926104269F718F00153798 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		00B618402672B01F00C8BE58 /* HomeController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController2.swift; sourceTree = "<group>"; };
 		00D6A9D6260A8B6A0030FC3A /* hlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hlogo.png; sourceTree = "<group>"; };
 		0703FD5D2212B2BF00886A2A /* AdpostRadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdpostRadioTableViewCell.swift; sourceTree = "<group>"; };
@@ -3366,6 +3368,7 @@
 			children = (
 				18D8DCAE21A6C46D008888BA /* CustomHeader.swift */,
 				18D8DCAF21A6C46D008888BA /* CustomHeader.xib */,
+				00926104269F718F00153798 /* CustomLabel.swift */,
 			);
 			path = CustomHeader;
 			sourceTree = "<group>";
@@ -4659,6 +4662,7 @@
 				187EBCBF20BD6BB300B3277B /* CollectionViewSettings.swift in Sources */,
 				1836447D25DA50150031CDAA /* ChatImages.swift in Sources */,
 				18191A56207353FA00FF67C8 /* ProfileUpdateRateBar.swift in Sources */,
+				00926105269F718F00153798 /* CustomLabel.swift in Sources */,
 				180A4F5F2328D9FB002BC411 /* RejectedAdsUserTypeButton.swift in Sources */,
 				181888902081D35E008736F7 /* OfferAdsMessageAdImage.swift in Sources */,
 				186EE0452078FD29002463AF /* ReportController.swift in Sources */,

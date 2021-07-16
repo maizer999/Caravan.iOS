@@ -12,14 +12,14 @@ import NVActivityIndicatorView
 class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource, textFieldValueDelegate, PopupValueChangeDelegate {
    
     //MARK:- Outlets
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet weak var tableViewAAA: UITableView! {
         didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.tableFooterView = UIView()
-            tableView.separatorStyle = .singleLine
-            tableView.separatorColor = UIColor.black
-            tableView.showsVerticalScrollIndicator = false
+            tableViewAAA.delegate = self
+            tableViewAAA.dataSource = self
+            tableViewAAA.tableFooterView = UIView()
+            tableViewAAA.separatorStyle = .singleLine
+            tableViewAAA.separatorColor = UIColor.black
+            tableViewAAA.showsVerticalScrollIndicator = false
             //tableView.register(UINib(nibName: <#T##String#>, bundle: <#T##Bundle?#>), forCellReuseIdentifier: <#T##String#>)
         }
     }
@@ -27,26 +27,26 @@ class AadPostController: UIViewController, NVActivityIndicatorViewable, UITableV
     @IBOutlet weak var btnNext: UIButton!
     
     //MARK:- Properties
-    var isFromEditAd = false
-    var ad_id = 0
-    var catID = ""
-    var dataArray = [AdPostField]()
-    var newArray = [AdPostField]()
-    var imagesArray = [AdPostImageArray]()
-    var dynamicArray = [AdPostField]()
-    var hasPageNumber = ""
-    var refreshArray = [AdPostField]()
-    var imageIDArray = [Int]()
-    var data = [AdPostField]()
+    var isFromEditAdAAA = false
+    var ad_idAAA = 0
+    var catIDAAA = ""
+    var dataArrayAAA = [AdPostField]()
+    var newArrayAAA = [AdPostField]()
+    var imagesArrayAAA = [AdPostImageArray]()
+    var dynamicArrayAAA = [AdPostField]()
+    var hasPageNumberAAA = ""
+    var refreshArrayAAA = [AdPostField]()
+    var imageIDArrayAAA = [Int]()
+    var dataAAA = [AdPostField]()
     let defaults = UserDefaults.standard
-    var isBidding = true
-    var isPaid = true
-    var isImage = true
-    var isCatTempOn = false
+    var isBiddingAAA = true
+    var isPaidAAA = true
+    var isImageAAA = true
+    var isCatTempOnAAA = false
     //var idBiddingDefault = true
-    var selectOption = ""
-    var id = ""
-    var value = ""
+    var selectOptionAAA = ""
+    var idAAA = ""
+    var valueAAA = ""
     var priceHide = ""
     // Empty Fields Check
     var adTitle = ""
@@ -85,8 +85,8 @@ var calledFrom = ""
 
             UserDefaults.standard.set(true, forKey: "isBid")
             UserDefaults.standard.set("0", forKey: "is")
-            if isFromEditAd {
-                let param: [String: Any] = ["is_update": ad_id]
+            if isFromEditAdAAA {
+                let param: [String: Any] = ["is_update": ad_idAAA]
                 print(param)
                 self.adForest_adPost(param: param as NSDictionary)
             }
@@ -96,6 +96,7 @@ var calledFrom = ""
                 self.adForest_adPost(param: param as NSDictionary)
             }
         }else{
+            self.appDelegate.moveToLogin()
             print("Not Login")
             tableViewHelper()
             btnNext.isHidden = true
@@ -166,17 +167,17 @@ var calledFrom = ""
     }
     
     func changeText(value: String, fieldTitle: String) {
-        for index in 0..<dataArray.count {
-            if let objData = dataArray[index] as? AdPostField {
+        for index in 0..<dataArrayAAA.count {
+            if let objData = dataArrayAAA[index] as? AdPostField {
                 if objData.fieldType == "textfield" {
-                    if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostCell {
+                    if let cell  = tableViewAAA.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostCell {
                         var obj = AdPostField()
                         obj.fieldVal = value
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "textfield"
-                        data.append(obj)
-                        if fieldTitle == self.dataArray[index].fieldTypeName {
-                             self.dataArray[index].fieldVal = value
+                        dataAAA.append(obj)
+                        if fieldTitle == self.dataArrayAAA[index].fieldTypeName {
+                             self.dataArrayAAA[index].fieldVal = value
                         }
                     }
                 }
@@ -186,29 +187,29 @@ var calledFrom = ""
     
     func changePopupValue(selectedKey: String, fieldTitle: String, selectedText: String,isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool,isShow:Bool) {
         print(selectedKey, fieldTitle, selectedText,isBidSelected,IsPaySelected,isImageSelected)
-        isBidding = isBidSelected
-        isPaid = IsPaySelected
-        isImage = isImageSelected
-        id = selectedKey
-        for index in 0..<dataArray.count {
-            if let objData = dataArray[index] as? AdPostField {
+        isBiddingAAA = isBidSelected
+        isPaidAAA = IsPaySelected
+        isImageAAA = isImageSelected
+        idAAA = selectedKey
+        for index in 0..<dataArrayAAA.count {
+            if let objData = dataArrayAAA[index] as? AdPostField {
                 if objData.fieldType == "select" {
-                    if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostPopupCell {
+                    if let cell  = tableViewAAA.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostPopupCell {
                         var obj = AdPostField()
                         obj.fieldVal = selectedKey
                         obj.fieldTypeName = fieldTitle
                         obj.fieldType = "select"
-                        data.append(obj)
+                        dataAAA.append(obj)
                         
                         if obj.fieldTypeName == "ad_price_type" {
                             priceHide = selectedKey
                         }
-                        tableView.reloadData()
+                        tableViewAAA.reloadData()
 
                            
                         
-                        if fieldTitle == self.dataArray[index].fieldTypeName {
-                            self.dataArray[index].fieldVal = selectedText
+                        if fieldTitle == self.dataArrayAAA[index].fieldTypeName {
+                            self.dataArrayAAA[index].fieldVal = selectedText
                             cell.oltPopup.setTitle(selectedText, for: .normal)
                         }
                     }
@@ -225,10 +226,10 @@ var calledFrom = ""
         var option = ""
         
         var data = [AdPostField]()
-        for index in  0..<dataArray.count {
-            if let objData = dataArray[index] as? AdPostField {
+        for index in  0..<dataArrayAAA.count {
+            if let objData = dataArrayAAA[index] as? AdPostField {
                 if objData.fieldType == "textfield" {
-                    if let cell  = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostCell {
+                    if let cell  = tableViewAAA.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostCell {
                         var obj = AdPostField()
                         obj.fieldVal = cell.txtType.text
                         obj.fieldTypeName = cell.fieldName
@@ -252,9 +253,9 @@ var calledFrom = ""
                     }
                 }
                 else if objData.fieldType == "select" {
-                    if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostPopupCell {
+                    if let cell = tableViewAAA.cellForRow(at: IndexPath(row: index, section: 0)) as? AdPostPopupCell {
                         var obj = AdPostField()
-                        if isFromEditAd{
+                        if isFromEditAdAAA{
                             obj.fieldVal = cell.selectedKey
                         }
                         else{
@@ -263,17 +264,17 @@ var calledFrom = ""
                         }
                         obj.fieldTypeName = cell.fieldName
                         obj.fieldType = "select"
-                        value = cell.selectedKey
-                        obj.isRequired = dataArray[index].isRequired
+                        valueAAA = cell.selectedKey
+                        obj.isRequired = dataArrayAAA[index].isRequired
                         print(obj.fieldVal, obj.fieldTypeName, obj.fieldType, obj.isRequired)
                         data.append(obj)
-                        print(selectOption)
-                        option = value
+                        print(selectOptionAAA)
+                        option = valueAAA
                             //obj.fieldVal
                        if obj.fieldTypeName == "ad_type" {
                            //index == 7 &&
                            if option == "" {
-                               value = cell.oltPopup.currentTitle!
+                               valueAAA = cell.oltPopup.currentTitle!
                                cell.oltPopup.titleLabel?.textColor = UIColor.red
                                cell.oltPopup.shake(duration: 0.5, values: [-12.0, 12.0, -12.0, 12.0, -6.0, 6.0, -3.0, 3.0, 0.0])
 
@@ -294,33 +295,33 @@ var calledFrom = ""
             }
         }
         
-        if isFromEditAd == false{
-            if isCatTempOn == true {
-                if self.adTitle == "" ||  id == ""{
+        if isFromEditAdAAA == false{
+            if isCatTempOnAAA == true {
+                if self.adTitle == "" ||  idAAA == ""{
                     print("empty page cat Temp")
                 }
                 else {
                     let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
                     if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                        self.refreshArray = dataArray
-                        self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                        self.refreshArrayAAA = dataArrayAAA
+                        self.refreshArrayAAA.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
                         print(AddsHandler.sharedInstance.objAdPostData)
-                        postVC.fieldsArray = self.refreshArray
+                        postVC.fieldsArray = self.refreshArrayAAA
                         
                         postVC.objArray = data
-                        postVC.isfromEditAd = self.isFromEditAd
+                        postVC.isfromEditAd = self.isFromEditAdAAA
                     }
                     else {
                         postVC.objArray = data
-                        postVC.fieldsArray = self.dataArray
-                        postVC.isfromEditAd = self.isFromEditAd
+                        postVC.fieldsArray = self.dataArrayAAA
+                        postVC.isfromEditAd = self.isFromEditAdAAA
                         postVC.priceHide = self.priceHide
                         
                     }
-                    postVC.imageArray = self.imagesArray
-                    postVC.imageIDArray = self.imageIDArray
-                    postVC.isBid = self.isBidding
-                    postVC.isImg = self.isImage
+                    postVC.imageArray = self.imagesArrayAAA
+                    postVC.imageIDArray = self.imageIDArrayAAA
+                    postVC.isBid = self.isBiddingAAA
+                    postVC.isImg = self.isImageAAA
                     
                     self.navigationController?.pushViewController(postVC, animated: true)
                 }
@@ -329,26 +330,26 @@ var calledFrom = ""
             else {
                 let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
                 if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                    self.refreshArray = dataArray
-                    self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                    self.refreshArrayAAA = dataArrayAAA
+                    self.refreshArrayAAA.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
                     print(AddsHandler.sharedInstance.objAdPostData)
-                    postVC.fieldsArray = self.refreshArray
+                    postVC.fieldsArray = self.refreshArrayAAA
                     
                     postVC.objArray = data
-                    postVC.isfromEditAd = self.isFromEditAd
+                    postVC.isfromEditAd = self.isFromEditAdAAA
                 }
                 else {
                     postVC.objArray = data
                     print(data)
-                    postVC.fieldsArray = self.dataArray
-                    postVC.isfromEditAd = self.isFromEditAd
+                    postVC.fieldsArray = self.dataArrayAAA
+                    postVC.isfromEditAd = self.isFromEditAdAAA
                     postVC.priceHide = self.priceHide
                     
                 }
-                postVC.imageArray = self.imagesArray
-                postVC.imageIDArray = self.imageIDArray
-                postVC.isBid = self.isBidding
-                postVC.isImg = self.isImage
+                postVC.imageArray = self.imagesArrayAAA
+                postVC.imageIDArray = self.imageIDArrayAAA
+                postVC.isBid = self.isBiddingAAA
+                postVC.isImg = self.isImageAAA
                 
                 self.navigationController?.pushViewController(postVC, animated: true)
             }
@@ -361,25 +362,25 @@ var calledFrom = ""
 //            else {
                 let postVC = self.storyboard?.instantiateViewController(withIdentifier: "AdPostImagesController") as! AdPostImagesController
                 if AddsHandler.sharedInstance.isCategoeyTempelateOn {
-                    self.refreshArray = dataArray
-                    self.refreshArray.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
-                    postVC.fieldsArray = self.refreshArray
+                    self.refreshArrayAAA = dataArrayAAA
+                    self.refreshArrayAAA.insert(contentsOf: AddsHandler.sharedInstance.objAdPostData, at: 2)
+                    postVC.fieldsArray = self.refreshArrayAAA
                     postVC.objArray = data
-                    postVC.isfromEditAd = self.isFromEditAd
+                    postVC.isfromEditAd = self.isFromEditAdAAA
                 }
                 else {
                     postVC.objArray = data
                     print(data)
-                    postVC.fieldsArray = self.dataArray
-                    postVC.isfromEditAd = self.isFromEditAd
+                    postVC.fieldsArray = self.dataArrayAAA
+                    postVC.isfromEditAd = self.isFromEditAdAAA
                     print(self.priceHide)
                     postVC.priceHide = self.priceHide
                    
                 }
-                postVC.imageArray = self.imagesArray
-                postVC.imageIDArray = self.imageIDArray
-                postVC.isBid = self.isBidding
-                postVC.isImg = self.isImage
+                postVC.imageArray = self.imagesArrayAAA
+                postVC.imageIDArray = self.imageIDArrayAAA
+                postVC.isBid = self.isBiddingAAA
+                postVC.isImg = self.isImageAAA
                 
                 self.navigationController?.pushViewController(postVC, animated: true)
         }
@@ -396,14 +397,14 @@ var calledFrom = ""
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if hasPageNumber == "1" {
-            return dataArray.count
+        if hasPageNumberAAA == "1" {
+            return dataArrayAAA.count
         }
-        return dataArray.count
+        return dataArrayAAA.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let objData = dataArray[indexPath.row]
+        let objData = dataArrayAAA[indexPath.row]
         
         if objData.fieldType == "textfield"  && objData.hasPageNumber == "1" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdPostCell", for: indexPath) as! AdPostCell
@@ -439,27 +440,27 @@ var calledFrom = ""
                         cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
                         cell.selectedKey = String(item.id)
                         if objData.values[0].name == nil{
-                            value = objData.values[1].name
+                            valueAAA = objData.values[1].name
 
                         }
                         else{
-                        value = objData.values[0].name
+                        valueAAA = objData.values[0].name
                         }
                     }else{
                         cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
                         //cell.oltPopup.setTitle(item.name, for: .normal)
-                        if isCatTempOn {
+                        if isCatTempOnAAA {
 //                            cell.selectedKey = String(item.id)
                         }else{
 //                            cell.selectedKey = String(item.id)
      
                         }
-                        if isFromEditAd{
+                        if isFromEditAdAAA{
 //                         cell.selectedKey = String(item.id)
                         }
 //                         cell.selectedKey = String(item.id)
                         if objData.values[0].name != nil{
-                            value = objData.values[0].name
+                            valueAAA = objData.values[0].name
 
                         }
 //                        else{
@@ -490,7 +491,7 @@ var calledFrom = ""
                     cell.hasCatTemplateArray.append(objData.hasCatTemplate)
                     cell.hasTempelateArray.append(items.hasTemplate)
                     cell.hasSubArray.append(items.hasSub)
-                    self.id = items.id
+                    self.idAAA = items.id
 
                     if objData.fieldTypeName == "ad_cats1"{
                         cell.isBiddingArray.append(items.isBid)
@@ -515,7 +516,7 @@ var calledFrom = ""
   
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0
-        let objData = dataArray[indexPath.row]
+        let objData = dataArrayAAA[indexPath.row]
         if objData.fieldType == "textfield" {
             
             if priceHide == "no_price" || priceHide == "on_call" || priceHide == "free"{
@@ -558,37 +559,37 @@ var calledFrom = ""
                 let tabController = self.parent as? UITabBarController
                 tabController?.navigationItem.title = successResponse.data.title
                 self.title = successResponse.data.title
-                self.isCatTempOn = successResponse.data.catTemplateOn
+                self.isCatTempOnAAA = successResponse.data.catTemplateOn
                 AddsHandler.sharedInstance.isCategoeyTempelateOn = successResponse.data.catTemplateOn
                 //this ad id send in parameter in 3rd step
                 AddsHandler.sharedInstance.adPostAdId = successResponse.data.adId
                 AddsHandler.sharedInstance.objAdPost = successResponse
                 //Fields
-                self.dataArray = successResponse.data.fields
-                self.newArray = successResponse.data.fields
-                self.imagesArray = successResponse.data.adImages
+                self.dataArrayAAA = successResponse.data.fields
+                self.newArrayAAA = successResponse.data.fields
+                self.imagesArrayAAA = successResponse.data.adImages
                 self.forwardButton()
 
-                for imageId in self.imagesArray {
+                for imageId in self.imagesArrayAAA {
                     if imageId.imgId == nil {
                         continue
                     }
-                    self.imageIDArray.append(imageId.imgId)
+                    self.imageIDArrayAAA.append(imageId.imgId)
                 }
                 for item in successResponse.data.fields {
                     if item.hasPageNumber == "1" {
-                        self.hasPageNumber = item.hasPageNumber
+                        self.hasPageNumberAAA = item.hasPageNumber
                     }
                 }
                 
                 //get category id to get dynamic fields
                 if let cat_id = successResponse.data.adCatId {
-                    self.catID = String(cat_id)
+                    self.catIDAAA = String(cat_id)
                 }
-                if self.isCatTempOn == true{
+                if self.isCatTempOnAAA == true{
                     if successResponse.data.adCatId != nil {
-                        let param: [String: Any] = ["cat_id": self.catID,
-                                                    "ad_id": self.ad_id
+                        let param: [String: Any] = ["cat_id": self.catIDAAA,
+                                                    "ad_id": self.ad_idAAA
                         ]
                         print(param)
                         self.adForest_dynamicFields(param: param as NSDictionary)
@@ -599,7 +600,7 @@ var calledFrom = ""
                 UserDefaults.standard.set(successResponse.extra.dialgCancel, forKey: "dialgCancel")
                 UserDefaults.standard.set(successResponse.extra.dialogSend, forKey: "dialogSend")
                 
-                self.tableView.reloadData()
+                self.tableViewAAA.reloadData()
             } else {
                 let alert = AlertView.prepare(title: "", message: successResponse.message, okAction: {
                   self.navigationController?.popViewController(animated: true)
@@ -651,7 +652,7 @@ var calledFrom = ""
         if let msg = self.defaults.string(forKey: "notLogin") {
             msgLogin = msg
         }
-        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.tableViewAAA.bounds.size.width, height: self.tableViewAAA.bounds.size.height))
         let messageLabel = UILabel(frame: rect)
         messageLabel.text =  msgLogin
         messageLabel.textColor = UIColor.lightGray
@@ -659,7 +660,7 @@ var calledFrom = ""
         messageLabel.textAlignment = .center;
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 20)
         messageLabel.sizeToFit()
-        tableView.backgroundView = messageLabel
+        tableViewAAA.backgroundView = messageLabel
     }
 
 }

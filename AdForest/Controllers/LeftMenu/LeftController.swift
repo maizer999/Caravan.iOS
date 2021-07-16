@@ -107,6 +107,26 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- Properties
+    @IBAction func openFacebook(_ sender: Any) {
+        UIApplication.tryURL(urls: [
+                        "fb://profile/116374146706", // App
+                        "http://www.facebook.com/116374146706" // Website if app fails
+                        ])
+    }
+    @IBAction func openYoutube(_ sender: Any) {
+        let youtubeId = "vklj235nlw"
+          var url = URL(string:"youtube://\(youtubeId)")!
+          if !UIApplication.shared.canOpenURL(url)  {
+              url = URL(string:"http://www.youtube.com/watch?v=\(youtubeId)")!
+          }
+          UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func openLinkdin(_ sender: Any) {
+        if let url = URL(string: "https://www.hackingwithswift.com") {
+            UIApplication.shared.open(url)
+        }
+    }
     
     var isShowBlog = false
     var isShowSetting = false
@@ -947,4 +967,17 @@ class LeftController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+}
+
+
+extension UIApplication {
+    class func tryURL(urls: [String]) {
+        let application = UIApplication.shared
+        for url in urls {
+            if application.canOpenURL(URL(string: url)!) {
+                application.openURL(URL(string: url)!)
+                return
+            }
+        }
+    }
 }

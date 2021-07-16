@@ -343,8 +343,8 @@ class ExpireAdsViewController: UIViewController, UICollectionViewDelegate, UICol
         
         cell.actionEdit = { () in
             let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: "AadPostController") as! AadPostController
-            editAdVC.isFromEditAd = true
-            editAdVC.ad_id = objData.adId
+            editAdVC.isFromEditAdAAA = true
+            editAdVC.ad_idAAA = objData.adId
             self.navigationController?.pushViewController(editAdVC, animated: true)
         }
         

@@ -43,8 +43,14 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
             tabBar.unselectedItemTintColor = .lightGray
         }
         
-        self.navigationController?.navigationBar.barTintColor = UIColor.purple
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 44.0/255.0, green: 19/255.0, blue: 57.0/255.0, alpha: 1.0)
         
+            
+            
+//            UIColor(rgb: 0x713091, a: 1.0)
+//        UIColor.purple
+//
+//        713091
         setNavigationBar()
         
     }
@@ -61,18 +67,21 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         let notificationButton = UIButton(type: .custom)
         notificationButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
+        // maizer header logo
+        
         var img = UIImageView()
         img.frame = notificationButton.frame
         img.contentMode = .scaleAspectFill
         img.clipsToBounds = true
         img.image = UIImage(named: "not_lc")
         notificationButton.addSubview(img)
+        notificationButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: notificationButton)
         
-        
+        // maizer more_lc
         
         let moreButton = UIButton(type: .custom)
         moreButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        
         img = UIImageView()
         img.frame = moreButton.frame
         img.contentMode = .scaleAspectFill
@@ -80,13 +89,12 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         img.image = UIImage(named: "more_lc")
         moreButton.addSubview(img)
         
-        
-        notificationButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: notificationButton)
-        
         moreButton.frame = CGRect(x: 0, y: 0, width: 10, height: 30)
-        moreButton.addTarget(self, action: #selector(actionHome), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(callAction), for: .touchUpInside)
         let item2 = UIBarButtonItem(customView: moreButton)
+
+        
+        
         
         
 //        self.navigationItem.setLeftBarButtonItems([item2,item1], animated: true)
@@ -235,6 +243,30 @@ class SOTabBarViewController: UITabBarController ,NearBySearchDelegate,UISearchB
         
         self.navigationItem.rightBarButtonItems = barButtonItems
         
+    }
+    
+    @objc func callAction() {
+        //Create the AlertController and add Its action like button in Actionsheet
+        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: nil, message: nil , preferredStyle: .actionSheet)
+
+            let cancelActionButton = UIAlertAction(title: "إلغاء", style: .cancel) { _ in
+                print("إلغاء")
+            }
+            actionSheetControllerIOS8.addAction(cancelActionButton)
+
+            let saveActionButton = UIAlertAction(title: "اتصل بنا", style: .default)
+                { _ in
+                   print("اتصل بنا")
+                if let phoneCallURL = URL(string: "tel://\(0962770887766)"), UIApplication.shared.canOpenURL(phoneCallURL)
+                {
+                    UIApplication.shared.open(phoneCallURL, options: [:], completionHandler: nil)
+                }
+                
+            }
+            actionSheetControllerIOS8.addAction(saveActionButton)
+
+            self.present(actionSheetControllerIOS8, animated: true, completion: nil)
+
     }
     
     @objc func actionHome() {

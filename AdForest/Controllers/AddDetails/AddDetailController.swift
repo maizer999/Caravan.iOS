@@ -643,8 +643,8 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
                     cell.containerViewEdit.isHidden = false
                     cell.btnEdit = { () in
                         let editAdVC = self.storyboard?.instantiateViewController(withIdentifier: AadPostController.className) as! AadPostController
-                        editAdVC.isFromEditAd = true
-                        editAdVC.ad_id = self.ad_id
+                        editAdVC.isFromEditAdAAA = true
+                        editAdVC.ad_idAAA = self.ad_id
                         self.navigationController?.pushViewController(editAdVC, animated: true)
                     }
                 }
@@ -685,7 +685,7 @@ class AddDetailController: UIViewController, UITableViewDelegate, UITableViewDat
 //                cell.lblHtmlText.attributedText = NSMutableAttributedString(string: (attrStr?.string)!, attributes: strokeTextAttributes)
 
                 cell.wkWebView.loadHTMLStringWithMagic(content:htmlText, baseURL: nil)
-                cell.heightConstraintWebView.constant = cell.wkWebView.scrollView.contentSize.height
+            //    cell.heightConstraintWebView.constant = cell.wkWebView.scrollView.contentSize.height
             
                // self.view.layoutIfNeeded()
                 

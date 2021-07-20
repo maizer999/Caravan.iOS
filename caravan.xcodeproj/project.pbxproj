@@ -668,6 +668,8 @@
 		CBD3187A2552D9D50090F2F9 /* ContactWithAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD318792552D9D50090F2F9 /* ContactWithAdminViewController.swift */; };
 		CBFC0D41253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC0D40253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift */; };
 		CBFC0D46253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFC0D45253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift */; };
+		EA4A387326A56D3000B2AF99 /* MapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4A387226A56D3000B2AF99 /* MapViewCell.swift */; };
+		EAB5C44C26A36E1E000497C1 /* AadPostControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB5C44B26A36E1E000497C1 /* AadPostControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1373,6 +1375,8 @@
 		CBFC0D45253DBE0E0080A0A7 /* MarvelHomeFeatureDefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelHomeFeatureDefaultTableViewCell.swift; sourceTree = "<group>"; };
 		D7891EE06284EDC6F814CEAD /* Pods-caravan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-caravan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-caravan/Pods-caravan.debug.xcconfig"; sourceTree = "<group>"; };
 		DCCFEF33A568B86FBFCB0E9A /* Pods_AdForestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdForestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA4A387226A56D3000B2AF99 /* MapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCell.swift; sourceTree = "<group>"; };
+		EAB5C44B26A36E1E000497C1 /* AadPostControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AadPostControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1968,7 +1972,9 @@
 			isa = PBXGroup;
 			children = (
 				182B4B4120905C0C00324D4E /* AadPostController.swift */,
+				EAB5C44B26A36E1E000497C1 /* AadPostControllerExtension.swift */,
 				182B4B5C209072E500324D4E /* AdPostCell.swift */,
+				EA4A387226A56D3000B2AF99 /* MapViewCell.swift */,
 			);
 			path = AadPost;
 			sourceTree = "<group>";
@@ -4238,6 +4244,7 @@
 				18BBFACA20510E910067662F /* UserHandler.swift in Sources */,
 				18392412209C346500BC35F7 /* SearchRoot.swift in Sources */,
 				CBFC0D41253DBDFF0080A0A7 /* MarvelHomeFeatureDefaultCollectionViewCell.swift in Sources */,
+				EAB5C44C26A36E1E000497C1 /* AadPostControllerExtension.swift in Sources */,
 				CBC43FCF251DCE1900D7AA6C /* SocialLoginCollectionViewCell.swift in Sources */,
 				18A31FEF213E9F8900A5B6EB /* UserPublicRate.swift in Sources */,
 				18BBFB08205166410067662F /* AdvancedSearchController.swift in Sources */,
@@ -4369,6 +4376,7 @@
 				965D25AD24FE436800CF58BA /* MarvelAdsCollectionViewCell.swift in Sources */,
 				18196DF7214916C600F6515E /* CategoryDetailController.swift in Sources */,
 				182690AE208728F700E2C966 /* HomeSlider.swift in Sources */,
+				EA4A387326A56D3000B2AF99 /* MapViewCell.swift in Sources */,
 				18F0C7DE206F712B003E16A5 /* SettingsSubMenu.swift in Sources */,
 				1839241C209C407900BC35F7 /* SearchValue.swift in Sources */,
 				1826689820C14AFF00A70B1C /* UserConfirmationData.swift in Sources */,

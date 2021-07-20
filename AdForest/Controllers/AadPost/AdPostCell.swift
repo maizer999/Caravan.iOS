@@ -16,7 +16,7 @@ protocol textFieldValueDelegate {
 }
 
 protocol PopupValueChangeDelegate {
-    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText : String, isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool,isShow:Bool)
+    func changePopupValue(selectedKey: String, fieldTitle: String, selectedText : String, isBidSelected:Bool,IsPaySelected:Bool,isImageSelected:Bool,isShow:Bool, hasSubCategory:Bool)
 }
 
 class AdPostCell: UITableViewCell , UITextFieldDelegate {
@@ -205,7 +205,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
                 self.hasTempelate = self.hasTempelateArray[index]
                 self.hasCatTempelate = self.hasCatTemplateArray[index]
                 
-                self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: item, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow)
+                self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: item, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow, hasSubCategory: self.hasSub)
                 
                 if self.hasCatTempelate {
                     if self.hasTempelate {
@@ -236,7 +236,7 @@ class AdPostPopupCell : UITableViewCell, NVActivityIndicatorViewable, SubCategor
             self.oltPopup.setTitle(name, for: .normal)
             self.selectedKey = String(id)
             self.selectedValue = name
-            self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: name, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow)
+            self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: name, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow, hasSubCategory: false)
 
         }
         if hasCatTempelate {

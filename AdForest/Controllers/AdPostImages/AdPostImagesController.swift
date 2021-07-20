@@ -68,7 +68,7 @@ class AdPostImagesController: UIViewController, UITableViewDelegate, UITableView
             self.oltPopup.setTitle(name, for: .normal)
             self.selectedKey = String(id)
             self.selectedValue = name
-            self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: name, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow)
+            self.delegatePopup?.changePopupValue(selectedKey: self.selectedKey, fieldTitle: self.fieldName, selectedText: name, isBidSelected: self.isBidSelected,IsPaySelected:self.IsPaySelected,isImageSelected:self.IsImageSelected ,isShow:self.isShow, hasSubCategory: false)
 
         }
         if hasCatTempelate {

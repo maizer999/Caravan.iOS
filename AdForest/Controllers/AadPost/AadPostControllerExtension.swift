@@ -1,9 +1,9 @@
 //
-//  AdPostMapController.swift
-//  AdForest
+//  AadPostControllerExtension.swift
+//  caravan
 //
-//  Created by apple on 4/26/18.
-//  Copyright © 2018 apple. All rights reserved.
+//  Created by salman sharif on 18/07/2021.
+//  Copyright © 2021 apple. All rights reserved.
 //
 
 import UIKit
@@ -17,187 +17,164 @@ import NVActivityIndicatorView
 import JGProgressHUD
 
 
-
-class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate, NVActivityIndicatorViewable, SubCategoryDelegate,latLongitudePro {
+extension AadPostController:  GMSAutocompleteViewControllerDelegate, GMSMapViewDelegate , UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate, SubCategoryDelegate,latLongitudePro {
   
-    //MARK:- Outlets
-    @IBOutlet weak var containerView: UIView! {
-        didSet{
-            containerView.addShadowToView()
-        }
-    }
-    @IBOutlet weak var lblUserinfo: UILabel!
-    @IBOutlet weak var txtName: HoshiTextField!
-    @IBOutlet weak var txtNumber: HoshiTextField!
-    @IBOutlet weak var containerViewPopup: UIView! {
-        didSet {
-            containerViewPopup.addShadowToView()
-        }
-    }
-    @IBOutlet weak var lblLocation: UILabel!
-    @IBOutlet weak var oltPopup: UIButton! {
-        didSet {
-            oltPopup.contentHorizontalAlignment = .left
-        }
-    }
-    @IBOutlet weak var containerViewAddress: UIView!
-    @IBOutlet weak var txtAddress: HoshiTextField! {
-        didSet{
-            txtAddress.delegate = self
-        }
-    }
-    @IBOutlet weak var containerViewMap: UIView!
-    @IBOutlet weak var mapView: MKMapView! {
-        didSet {
-            
-        }
-    }
-    @IBOutlet weak var txtLatitude: HoshiTextField!
-    @IBOutlet weak var txtLongitude: HoshiTextField!
-    @IBOutlet weak var containerViewFeatureAdd: UIView! {
-        didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                containerViewFeatureAdd.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-            }
-        }
-    }
-    @IBOutlet weak var lblFeatureAdd: UILabel!
-    @IBOutlet weak var oltCheck: UIButton!
-    @IBOutlet weak var imgCheckBox: UIImageView!
-    @IBOutlet weak var oltPostAdd: UIButton! {
-        didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                oltPostAdd.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-            }
-        }
-    }
-    
-    @IBOutlet weak var containerViewBumpUpAds: UIView! {
-        didSet{
-            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
-                containerViewBumpUpAds.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
-            }
-        }
-    }
-    @IBOutlet weak var imgCheckBump: UIImageView!
-    @IBOutlet weak var lblBumpText: UILabel!
-    
-    
-    
-    @IBOutlet weak var btnTermCondition: UIButton!
-    @IBOutlet weak var txtTermCondition: UITextField!
-    @IBOutlet weak var imgViewCheckBox: UIImageView!
-    @IBOutlet weak var btnCheckBoxTermCond: UIButton!
-    
-    
-    
-    //MARK:- Properties
-    let locationDropDown = DropDown()
-    lazy var dropDowns : [DropDown] = {
-        return [
-            self.locationDropDown
-        ]
-    }()
-    
-    var popUpArray = [String]()
-    var hasSubArray = [Bool]()
-    var locationIdArray = [String]()
-    
-    var hasSub = false
-    var selectedID = ""
-    
-    var popUpTitle = ""
-    var popUpConfirm = ""
-    var popUpCancel = ""
-    var popUpText = ""
-    
-    let map = GMSMapView()
-    var locationManager = CLLocationManager()
-    let newPin = MKPointAnnotation()
-    let regionRadius: CLLocationDistance = 1000
-    var initialLocation = CLLocation(latitude: 25.276987, longitude: 55.296249)
-    
-    var latitude = ""
-    var longitude = ""
-    // var objFieldData = [AdPostField]()
-    var valueArray = [String]()
-    
-    var localVariable = ""
-    var isSimpleAddress = true
-    var isfromEditAd = false
-
-
-    
-    
-    //this array get data from previous controller
-    var objArray = [AdPostField]()
-    
-    
-    var imageIdArray = [Int]()
-    var descriptionText = ""
-    
-    var addInfoDictionary = [String: Any]()
-    var customDictionary = [String: Any]()
-    var customArray = [AdPostField]()
-    var imageArray = AddsHandler.sharedInstance.adPostImagesArray
-    // get values in populate data and send it with parameters
-    var phone_number = ""
-    var address = ""
-    
-    var isFeature = "false"
-    var isBump = false
-    var localDictionary = [String: Any]()
-    var selectedCountry = ""
-    var isTermCond = false
-    var termCondURL = ""
-    let defaults = UserDefaults.standard
-    
-    var mapBoxLat = ""
-    var mapBoxLong = ""
-    var mapBoxPlace = ""
-    var fromAdDetail = false;
-    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
+//    //MARK:- Outlets
+//    @IBOutlet weak var containerView: UIView! {
+//        didSet{
+//            containerView.addShadowToView()
+//        }
+//    }
+//    @IBOutlet weak var lblUserinfo: UILabel!
+//    @IBOutlet weak var txtName: HoshiTextField!
+//    @IBOutlet weak var txtNumber: HoshiTextField!
+//    @IBOutlet weak var containerViewPopup: UIView! {
+//        didSet {
+//            containerViewPopup.addShadowToView()
+//        }
+//    }
+//    @IBOutlet weak var lblLocation: UILabel!
+//    @IBOutlet weak var oltPopup: UIButton! {
+//        didSet {
+//            oltPopup.contentHorizontalAlignment = .left
+//        }
+//    }
+//    @IBOutlet weak var containerViewAddress: UIView!
+//    @IBOutlet weak var txtAddress: HoshiTextField! {
+//        didSet{
+//            txtAddress.delegate = self
+//        }
+//    }
+//    @IBOutlet weak var containerViewMap: UIView!
+//    @IBOutlet weak var mapView: MKMapView! {
+//        didSet {
+//
+//        }
+//    }
+//    @IBOutlet weak var txtLatitude: HoshiTextField!
+//    @IBOutlet weak var txtLongitude: HoshiTextField!
+//    @IBOutlet weak var containerViewFeatureAdd: UIView! {
+//        didSet{
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+//                containerViewFeatureAdd.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//            }
+//        }
+//    }
+//    @IBOutlet weak var lblFeatureAdd: UILabel!
+//    @IBOutlet weak var oltCheck: UIButton!
+//    @IBOutlet weak var imgCheckBox: UIImageView!
+//    @IBOutlet weak var oltPostAdd: UIButton! {
+//        didSet{
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+//                oltPostAdd.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//            }
+//        }
+//    }
+//
+//    @IBOutlet weak var containerViewBumpUpAds: UIView! {
+//        didSet{
+//            if let mainColor = UserDefaults.standard.string(forKey: "mainColor"){
+//                containerViewBumpUpAds.backgroundColor = Constants.hexStringToUIColor(hex: mainColor)
+//            }
+//        }
+//    }
+//    @IBOutlet weak var imgCheckBump: UIImageView!
+//    @IBOutlet weak var lblBumpText: UILabel!
+//
+//
+//
+//    @IBOutlet weak var btnTermCondition: UIButton!
+//    @IBOutlet weak var txtTermCondition: UITextField!
+//    @IBOutlet weak var imgViewCheckBox: UIImageView!
+//    @IBOutlet weak var btnCheckBoxTermCond: UIButton!
+//
+//
+//
+//    //MARK:- Properties
+//    let locationDropDown = DropDown()
+//    lazy var dropDowns : [DropDown] = {
+//        return [
+//            self.locationDropDown
+//        ]
+//    }()
+//
+//    var popUpArray = [String]()
+//    var hasSubArray = [Bool]()
+//    var locationIdArray = [String]()
+//
+//    var hasSub = false
+//    var selectedID = ""
+//
+//    var popUpTitle = ""
+//    var popUpConfirm = ""
+//    var popUpCancel = ""
+//    var popUpText = ""
+//
+//    let map = GMSMapView()
+//    var locationManager = CLLocationManager()
+//    let newPin = MKPointAnnotation()
+//    let regionRadius: CLLocationDistance = 1000
+//    var initialLocation = CLLocation(latitude: 25.276987, longitude: 55.296249)
+//
+//    var latitude = ""
+//    var longitude = ""
+//    // var objFieldData = [AdPostField]()
+//    var valueArray = [String]()
+//
+//    var localVariable = ""
+//    var isSimpleAddress = true
+//    var isfromEditAd = false
+//
+//
+//
+//
+//    //this array get data from previous controller
+//    var objArray = [AdPostField]()
+//
+//
+//    var imageIdArray = [Int]()
+//    var descriptionText = ""
+//
+//    var addInfoDictionary = [String: Any]()
+//    var customDictionary = [String: Any]()
+//    var customArray = [AdPostField]()
+//    var imageArray = AddsHandler.sharedInstance.adPostImagesArray
+//    // get values in populate data and send it with parameters
+//    var phone_number = ""
+//    var address = ""
+//
+//    var isFeature = "false"
+//    var isBump = false
+//    var localDictionary = [String: Any]()
+//    var selectedCountry = ""
+//    var isTermCond = false
+//    var termCondURL = ""
+//    let defaults = UserDefaults.standard
+//
+//    var mapBoxLat = ""
+//    var mapBoxLong = ""
+//    var mapBoxPlace = ""
+//    var fromAdDetail = false;
+//    var adDetailStyle: String = UserDefaults.standard.string(forKey: "adDetailStyle")!
 
     
     //MARK:- View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.showBackButton()
-        self.adForest_populateData()
+    func thirdViewDidLoad() {
+//        self.showBackButton()
         
-        map.isMyLocationEnabled = true
-        map.settings.myLocationButton = true
-        addMapTrackingButton()
-        for item in objArray {
+        for item in objArray1 {
             print(item.fieldTypeName, item.fieldName, item.fieldVal, item.fieldType)
         }
         
-        let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
-        let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
+//        let whiteColorAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): UIColor.white]
+//        let attributePlaceHolder = NSAttributedString(string: "Search", attributes: whiteColorAttribute)
+//        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = attributePlaceHolder
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes(whiteColorAttribute, for: .normal)
+//
         
         
-        if defaults.bool(forKey: "isRtl") {
-            txtName.textAlignment = .right
-            txtNumber.textAlignment = .right
-            txtAddress.textAlignment = .right
-            txtLatitude.textAlignment = .right
-            txtLongitude.textAlignment = .right
-            txtTermCondition.textAlignment = .right
-            oltPopup.contentHorizontalAlignment = .right
-        } else {
-            txtName.textAlignment = .left
-            txtNumber.textAlignment = .left
-            txtAddress.textAlignment = .left
-            txtLatitude.textAlignment = .left
-            txtLongitude.textAlignment = .left
-            txtTermCondition.textAlignment = .left
-            oltPopup.contentHorizontalAlignment = .left
-        }
-        txtLatitude.isUserInteractionEnabled = false
-        txtLongitude.isUserInteractionEnabled = false
-           
+         isMapViewAdd = true
+        tableViewAAA.reloadData()
     }
     
     
@@ -242,7 +219,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     self.presentVC(mapBoxPlaceVc)
                 }
             }else{
-                address = txtAddress.text!
+                address = self.mapViewCell!.txtAddress.text!
             }
             
            
@@ -252,21 +229,21 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     }
     
     //MARK: - Custom
-    func showLoader(){
-        self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
-    }
+//    func showLoader(){
+//        self.startAnimating(Constants.activitySize.size, message: Constants.loaderMessages.loadingMessage.rawValue,messageFont: UIFont.systemFont(ofSize: 14), type: NVActivityIndicatorType.ballClipRotatePulse)
+//    }
     
     func latLong(lat: String, long: String,place:String) {
       
         mapBoxLat = lat
         mapBoxLong = long
         
-        self.txtLatitude.text = lat
-        self.txtLatitude.text = long
+        self.mapViewCell!.txtLatitude.text = lat
+        self.mapViewCell!.txtLatitude.text = long
         
         self.latitude = lat
         self.longitude = long
-        self.txtAddress.text = place
+        self.mapViewCell!.txtAddress.text = place
         self.address = place
         initialLocation = CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!)
         self.centerMapOnLocation(location: initialLocation)
@@ -274,7 +251,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         
        }
     
-    func adForest_populateData() {
+    func adForest_populateData1() {
         if AddsHandler.sharedInstance.objAdPost != nil {
             let objData = AddsHandler.sharedInstance.objAdPost
             
@@ -282,26 +259,26 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 self.title = pageTitle
             }
             if let infoText = objData?.extra.userInfo {
-                self.lblUserinfo.text = infoText
+                self.mapViewCell!.lblUserinfo.text = infoText
             }
             if let nameText = objData?.data.profile.name.title {
-                self.txtName.placeholder = nameText
+                self.mapViewCell!.txtName.placeholder = nameText
             }
             if  let name = objData?.data.profile.name.fieldVal {
-                self.txtName.text = name
+                self.mapViewCell!.txtName.text = name
             }
             
             if let nmbrText = objData?.data.profile.phone.title {
-                self.txtNumber.placeholder = nmbrText
+                self.mapViewCell!.txtNumber.placeholder = nmbrText
             }
             if let nmbr = objData?.data.profile.phone.fieldVal {
-                self.txtNumber.text = nmbr
+                self.mapViewCell!.txtNumber.text = nmbr
                 self.phone_number = nmbr
             }
             
             if let termsCond = objData?.extra {
-                self.txtTermCondition.text = termsCond.termsCondition
-                self.btnTermCondition.setTitle(termsCond.termsUrl, for: .normal)
+                self.mapViewCell!.txtTermCondition.text = termsCond.termsCondition
+                self.mapViewCell!.btnTermCondition.setTitle(termsCond.termsUrl, for: .normal)
                 self.termCondURL = termsCond.termsUrl
 
             }
@@ -312,19 +289,19 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             }
             
             if isPhoneEdit {
-                self.txtNumber.isEnabled = true
+                self.mapViewCell!.txtNumber.isEnabled = true
             }
             else if isPhoneEdit == false {
-                self.txtNumber.isEnabled = false
+                self.mapViewCell!.txtNumber.isEnabled = false
             }
             
             if let addressText = objData?.data.profile.location.title {
-                self.txtAddress.placeholder = addressText
+                self.mapViewCell!.txtAddress.placeholder = addressText
                
             }
             
             if let addressValue = objData?.data.profile.location.fieldVal {
-                self.txtAddress.text = addressValue
+                self.mapViewCell!.txtAddress.text = addressValue
                 self.address = addressValue
             }
             
@@ -335,19 +312,19 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             if isMapShow {
                 
                 if let latText = objData?.data.profile.map.locationLat.title {
-                    self.txtLatitude.placeholder = latText
+                    self.mapViewCell!.txtLatitude.placeholder = latText
                 }
                 
                 if let latValue =  objData?.data.profile.map.locationLat.fieldVal {
-                    self.txtLatitude.text = latValue
+                    self.mapViewCell!.txtLatitude.text = latValue
                 }
                 
                 if let longText = objData?.data.profile.map.locationLong.title {
-                    self.txtLongitude.placeholder = longText
+                    self.mapViewCell!.txtLongitude.placeholder = longText
                 }
                 
                 if let longValue = objData?.data.profile.map.locationLong.fieldVal {
-                    self.txtLongitude.text = longValue
+                    self.mapViewCell!.txtLongitude.text = longValue
                 }
                 if let lat = objData?.data.profile.map.locationLat.fieldVal {
                     self.latitude = lat
@@ -365,9 +342,9 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             }
                 
             else if isMapShow == false {
-                containerViewMap.isHidden = true
-                containerViewFeatureAdd.translatesAutoresizingMaskIntoConstraints = false
-                containerViewFeatureAdd.topAnchor.constraint(equalTo: self.containerViewAddress.bottomAnchor, constant: 20).isActive = true
+                self.mapViewCell!.containerViewMap.isHidden = true
+                self.mapViewCell!.containerViewFeatureAdd.translatesAutoresizingMaskIntoConstraints = false
+                self.mapViewCell!.containerViewFeatureAdd.topAnchor.constraint(equalTo: self.mapViewCell!.containerViewAddress.bottomAnchor, constant: 20).isActive = true
             }
             
             guard let isShowCountry = objData?.data.profile.adCountryShow else {
@@ -383,7 +360,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     self.hasSubArray.append(values.hasSub)
                     self.locationIdArray.append(String(values.id))
                     if i == 1 {
-                        self.oltPopup.setTitle(values.name, for: .normal)
+                        self.mapViewCell!.oltPopup.setTitle(values.name, for: .normal)
                     }
                     
                     i = i + 1
@@ -393,14 +370,14 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             }
                 
             else if isShowCountry == false {
-                self.containerViewPopup.isHidden = true
-                containerViewAddress.translatesAutoresizingMaskIntoConstraints = false
-                containerViewAddress.topAnchor.constraint(equalTo: self.txtNumber.bottomAnchor, constant: 8).isActive = true
+                self.mapViewCell!.containerViewPopup.isHidden = true
+                self.mapViewCell!.containerViewAddress.translatesAutoresizingMaskIntoConstraints = false
+                self.mapViewCell!.containerViewAddress.topAnchor.constraint(equalTo: self.mapViewCell!.txtNumber.bottomAnchor, constant: 8).isActive = true
             }
             if isShowCountry == true {
                 
                 if let locationText = objData?.data.profile.adCountry.title {
-                    self.lblLocation.text = locationText
+                    self.mapViewCell!.lblLocation.text = locationText
                 }
                 
             }
@@ -410,12 +387,12 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             
             if featuredAdBuy {
                 if let checkButtonTitle = objData?.data.profile.featuredAdNotify.btn {
-                    self.oltCheck.setTitle(checkButtonTitle, for: .normal)
-                    self.oltCheck.backgroundColor = Constants.hexStringToUIColor(hex: "#00a2ff")
-                    imgCheckBox.image = nil
+                    self.mapViewCell!.oltCheck.setTitle(checkButtonTitle, for: .normal)
+                    self.mapViewCell!.oltCheck.backgroundColor = Constants.hexStringToUIColor(hex: "#00a2ff")
+                    self.mapViewCell!.imgCheckBox.image = nil
                 }
                 if let featureTitle = objData?.data.profile.featuredAdNotify.text {
-                    self.lblFeatureAdd.text = featureTitle
+                    self.mapViewCell!.lblFeatureAdd.text = featureTitle
                 }
             }
             
@@ -424,13 +401,13 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             }
             
              if featureAdShow {
-                  imgCheckBox.image = #imageLiteral(resourceName: "uncheck")
+                self.mapViewCell!.imgCheckBox.image = #imageLiteral(resourceName: "uncheck")
                 if let featureAdText = objData?.data.profile.featuredAd.title {
-                    self.lblFeatureAdd.text = featureAdText
+                    self.mapViewCell!.lblFeatureAdd.text = featureAdText
                 }
                 
                 if let titlePop = objData?.data.profile.featuredAdText.title {
-                    self.popUpTitle = titlePop
+                    self.popUpTitle1 = titlePop
                 }
                 if let textPop = objData?.data.profile.featuredAdText.text {
                     self.popUpText = textPop
@@ -444,24 +421,24 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 }
             }
             if featureAdShow == false && featuredAdBuy == false {
-                    containerViewFeatureAdd.isHidden = true
+                self.mapViewCell!.containerViewFeatureAdd.isHidden = true
             }
             if let postButtonTitle =  objData?.data.btnSubmit {
-                self.oltPostAdd.setTitle(postButtonTitle, for: .normal)
+                self.mapViewCell!.oltPostAdd.setTitle(postButtonTitle, for: .normal)
             }
             
             guard let isShowBump = objData?.data.profile.bumpAdIsShow else {
                 return
             }
             if isShowBump {
-                imgCheckBump.image = #imageLiteral(resourceName: "uncheck")
+                self.mapViewCell!.imgCheckBump.image = #imageLiteral(resourceName: "uncheck")
                 if let bumpText = objData?.data.profile.bumpAd.title {
-                    lblBumpText.text = bumpText
+                    self.mapViewCell!.lblBumpText.text = bumpText
                 }
             } else {
-                containerViewBumpUpAds.isHidden = true
-                containerViewFeatureAdd.translatesAutoresizingMaskIntoConstraints = false
-                containerViewFeatureAdd.topAnchor.constraint(equalTo: self.containerViewMap.bottomAnchor, constant: 8).isActive = true
+                self.mapViewCell!.containerViewBumpUpAds.isHidden = true
+                self.mapViewCell!.containerViewFeatureAdd.translatesAutoresizingMaskIntoConstraints = false
+                self.mapViewCell!.containerViewFeatureAdd.topAnchor.constraint(equalTo: self.mapViewCell!.containerViewMap.bottomAnchor, constant: 8).isActive = true
             }
         }
     }
@@ -469,11 +446,11 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     //MARK:- SetUp Drop Down
     func locationPopup() {
-        locationDropDown.anchorView = oltPopup
+        locationDropDown.anchorView = self.mapViewCell!.oltPopup
         locationDropDown.dataSource = popUpArray
         locationDropDown.selectionAction = { [unowned self]
             (index, item) in
-            self.oltPopup.setTitle(item, for: .normal)
+            self.mapViewCell!.oltPopup.setTitle(item, for: .normal)
             self.selectedCountry = item
             self.hasSub = self.hasSubArray[index]
             self.selectedID = self.locationIdArray[index]
@@ -498,7 +475,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             self.selectedID = String(id)
         }
         else {
-            self.oltPopup.setTitle(name, for: .normal)
+            self.mapViewCell!.oltPopup.setTitle(name, for: .normal)
             self.selectedID = String(id)
         }
     }
@@ -507,10 +484,10 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
     
-        txtAddress.text = place.formattedAddress
+        self.mapViewCell!.txtAddress.text = place.formattedAddress
         self.address = place.formattedAddress!
-        self.txtLatitude.text = String(place.coordinate.latitude)
-        self.txtLongitude.text = String(place.coordinate.longitude)
+        self.mapViewCell!.txtLatitude.text = String(place.coordinate.latitude)
+        self.mapViewCell!.txtLongitude.text = String(place.coordinate.longitude)
         self.latitude = String(place.coordinate.latitude)
         self.longitude = String(place.coordinate.longitude)
         self.dismissVC(completion: nil)
@@ -535,8 +512,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     //MARK:- Map View Delegate Methods
     
      func setupView (){
-        mapView.delegate = self
-        mapView.showsUserLocation = true
+        self.mapViewCell!.mapView.delegate = self
+        self.mapViewCell!.mapView.showsUserLocation = true
         if (CLLocationManager.locationServicesEnabled()) {
             locationManager.startUpdatingLocation()
             locationManager.delegate = self
@@ -549,7 +526,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     // MARK: - Map
     func centerMapOnLocation (location: CLLocation){
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
+        self.mapViewCell!.mapView.setRegion(coordinateRegion, animated: true)
     }
     func addAnnotations(coords: [CLLocation]){
         
@@ -558,7 +535,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                                                       longitude: coord.coordinate.longitude);
             let anno = MKPointAnnotation();
             anno.coordinate = CLLCoordType;
-            mapView.addAnnotation(anno);
+            self.mapViewCell!.mapView.addAnnotation(anno);
         }
     }
     
@@ -585,9 +562,9 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         self.latitude = String(location.coordinate.latitude)
         self.longitude = String(location.coordinate.longitude)
-        self.txtLatitude.text = self.latitude
-        self.txtLongitude.text = self.longitude
-        self.mapView.setRegion(region, animated: true)
+        self.mapViewCell!.txtLatitude.text = self.latitude
+        self.mapViewCell!.txtLongitude.text = self.longitude
+        self.mapViewCell!.mapView.setRegion(region, animated: true)
         
         
             }
@@ -603,7 +580,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(currentLocationButtonAction), for:.touchUpInside)
 
-        mapView.addSubview(button)
+        self.mapViewCell!.mapView.addSubview(button)
         
     }
 
@@ -624,12 +601,12 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 600000)
             if #available(iOS 13.0, *) {
             
-                mapView.setCameraBoundary(
+                self.mapViewCell!.mapView.setCameraBoundary(
                     MKMapView.CameraBoundary(coordinateRegion: region),
                     animated: true)
                 let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 2000000)
-                mapView.setCameraZoomRange(zoomRange, animated: true)
-                self.mapView.setRegion(region, animated: true)
+                self.mapViewCell!.mapView.setCameraZoomRange(zoomRange, animated: true)
+                self.mapViewCell!.mapView.setRegion(region, animated: true)
 //                openMapForPlace()
             } else {
                 // Fallback on earlier versions
@@ -689,7 +666,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     
                     print(addressString)
                     self.address = addressString
-                    self.txtAddress.text = addressString
+                    self.mapViewCell!.txtAddress.text = addressString
                 }
         })
         
@@ -700,8 +677,8 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
         initialLocation = CLLocation(latitude: Double(bounds.center.latitude), longitude: Double(bounds.center.longitude))
         let latClicked = bounds.center.latitude
         let longCliked = bounds.center.longitude
-        self.txtLatitude.text = String(latClicked)
-        self.txtLongitude.text = String(longCliked)
+        self.mapViewCell!.txtLatitude.text = String(latClicked)
+        self.mapViewCell!.txtLongitude.text = String(longCliked)
         getAddressFromLatLon(pdblLatitude: String(latClicked), withLongitude: String(longCliked))
 //        self.addAnnotations(coords: [initialLocation])
 
@@ -747,14 +724,14 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                     self.showToast(message: featureTitle)
                 }
             } else if isFeatureBuy == false {
-                self.imgCheckBox.image = #imageLiteral(resourceName: "check")
-                let alert = UIAlertController(title: popUpTitle, message: popUpText, preferredStyle: .alert)
+                self.mapViewCell!.imgCheckBox.image = #imageLiteral(resourceName: "check")
+                let alert = UIAlertController(title: popUpTitle1, message: popUpText, preferredStyle: .alert)
                 let confirm = UIAlertAction(title: popUpConfirm, style: .default) { (action) in
-                    self.imgCheckBox.image = #imageLiteral(resourceName: "check")
+                    self.mapViewCell!.imgCheckBox.image = #imageLiteral(resourceName: "check")
                     self.isFeature = "true"
                 }
                 let cancel = UIAlertAction(title: popUpCancel, style: .default) { (action) in
-                    self.imgCheckBox.image =  #imageLiteral(resourceName: "uncheck")
+                    self.mapViewCell!.imgCheckBox.image =  #imageLiteral(resourceName: "uncheck")
                 }
                 alert.addAction(cancel)
                 alert.addAction(confirm)
@@ -766,7 +743,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     @IBAction func actionBumpAd(_ sender: UIButton) {
         if AddsHandler.sharedInstance.objAdPost != nil {
             let objData = AddsHandler.sharedInstance.objAdPost
-            self.imgCheckBump.image = #imageLiteral(resourceName: "check")
+            self.mapViewCell!.imgCheckBump.image = #imageLiteral(resourceName: "check")
             var title = ""
             var message = ""
             var confirm = ""
@@ -787,11 +764,11 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let confirmAction = UIAlertAction(title: confirm, style: .default) { (action) in
-                self.imgCheckBump.image = #imageLiteral(resourceName: "check")
+                self.mapViewCell!.imgCheckBump.image = #imageLiteral(resourceName: "check")
                 self.isBump = true
             }
             let cancelAction = UIAlertAction(title: cancel, style: .default) { (action) in
-                self.imgCheckBump.image = #imageLiteral(resourceName: "uncheck")
+                self.mapViewCell!.imgCheckBump.image = #imageLiteral(resourceName: "uncheck")
             }
             alert.addAction(cancelAction)
             alert.addAction(confirmAction)
@@ -835,10 +812,10 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     @IBAction func btnCheckBoxTermCondClicked(_ sender: UIButton) {
         
         if isTermCond == false{
-            self.imgViewCheckBox.image = UIImage(named: "check")
+            self.mapViewCell!.imgViewCheckBox.image = UIImage(named: "check")
             isTermCond = true
         }else{
-            self.imgViewCheckBox.image = UIImage(named: "uncheck")
+            self.mapViewCell!.imgViewCheckBox.image = UIImage(named: "uncheck")
             isTermCond = false
         }
         
@@ -847,18 +824,18 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
     @IBAction func actionPostAdd(_ sender: Any) {
         
         if isSimpleAddress == false{
-            address = txtAddress.text!
+            address = self.mapViewCell!.txtAddress.text!
         }
         
         if address == "" {
-            self.txtAddress.shake(6, withDelta: 10, speed: 0.06)
+            self.mapViewCell!.txtAddress.shake(6, withDelta: 10, speed: 0.06)
         }else if isTermCond == false{
-            self.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
+            self.mapViewCell!.txtTermCondition.shake(6, withDelta: 10, speed: 0.06)
         }
         else {
             var parameter: [String: Any] = [
                 "images_array": imageIdArray,
-                "ad_phone": self.txtNumber.text!, //phone_number,
+                "ad_phone": self.mapViewCell!.txtNumber.text!, //phone_number,
                 "ad_location": address,
                 "location_lat": latitude,
                 "location_long": longitude,
@@ -866,20 +843,20 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
                 "ad_featured_ad": isFeature,
                 "ad_id": AddsHandler.sharedInstance.adPostAdId,
                 "ad_bump_ad": isBump,
-                "name": self.txtName.text!
+                "name": self.mapViewCell!.txtName.text!
             ]
             
-            if isfromEditAd {
+            if isfromEditAd1 {
             parameter["is_update"] = AddsHandler.sharedInstance.adPostAdId
             }
             print(parameter)
-            let dataArray = objArray
-            print(objArray)
+            let dataArray = objArray1
+            print(objArray1)
             for (_, value) in dataArray.enumerated() {
             if value.fieldVal == "" {
             continue
             }
-            if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
+            if customArray1.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
 
             if value.fieldType == "checkbox"{
             let points = value.fieldVal
@@ -905,7 +882,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
             print(addInfoDictionary)
             }
             }
-            customDictionary.merge(with: localDictionary)
+            customDictionary.merge(with: localDictionary1)
             let custom = Constants.json(from: customDictionary)
             if AddsHandler.sharedInstance.isCategoeyTempelateOn {
             let param: [String: Any] = ["custom_fields": custom!]
@@ -921,7 +898,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
 //                if value.fieldVal == "" {
 //                    continue
 //                }
-//                if customArray.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
+//                if customArray1.contains(where: { $0.fieldTypeName == value.fieldTypeName}) {
 //                    customDictionary[value.fieldTypeName] = value.fieldVal
 //                    print(customDictionary)
 //                }
@@ -931,7 +908,7 @@ class AdPostMapController: UITableViewController, GMSAutocompleteViewControllerD
 //                }
 //            }
 //
-//            customDictionary.merge(with: localDictionary)
+//            customDictionary.merge(with: localDictionary1)
 //            let custom = Constants.json(from: customDictionary)
 //            if AddsHandler.sharedInstance.isCategoeyTempelateOn {
 //                let param: [String: Any] = ["custom_fields": custom!]

@@ -519,6 +519,7 @@ var calledFrom = ""
         
         self.adForest_populateData()
         self.isFirstTime = false
+        self.isMapViewAdd = false
         self.tableViewAAA.reloadData()
         
     }
@@ -545,11 +546,7 @@ var calledFrom = ""
         if isFirstTime{
             return 1
         } else {
-            if !isMapViewAdd{
-                return 4
-            } else{
-                return 5
-            }
+            return 5
         }
     }
     
@@ -575,15 +572,10 @@ var calledFrom = ""
                 returnValue =  1
             }
             else if section == 3 {
-                if !isMapViewAdd{
-                    returnValue = fieldsArray.count+1
-                } else {
-                    returnValue = fieldsArray.count
-                }
+                returnValue = fieldsArray.count
             }else if section == 4{
                 returnValue = 1
             }
-            
         }
       return returnValue
         
@@ -616,50 +608,52 @@ var calledFrom = ""
 //                cell.oltPopup.setTitle(fieldValue, for: .normal)
 //            }
             var i = 1
-            for item in objData.values {
-                if item.id == "" {
-                    continue
-                    
-                }
-                if i == 1 {
-                    if cell.selectedValue == ""{
-                        cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
-                        cell.selectedKey = String(item.id)
-                        if objData.values[0].name == nil{
-                            valueAAA = objData.values[1].name
-
-                        }
-                        else{
-                        valueAAA = objData.values[0].name
-                        }
-                    }else{
-                        cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
-                        //cell.oltPopup.setTitle(item.name, for: .normal)
-                        if isCatTempOnAAA {
-//                            cell.selectedKey = String(item.id)
-                        }else{
-//                            cell.selectedKey = String(item.id)
-     
-                        }
-                        if isFromEditAdAAA{
-//                         cell.selectedKey = String(item.id)
-                        }
-//                         cell.selectedKey = String(item.id)
-                        if objData.values[0].name != nil{
-                            valueAAA = objData.values[0].name
-
-                        }
-//                        else{
-//                            value = objData.values[0].name
-//
-//                        }
+            if objData.values != nil{
+                for item in objData.values {
+                    if item.id == "" {
+                        continue
                         
                     }
-//                    id = objData.values[0].id
-                   // cell.oltPopup.setTitle(item.name, for: .normal)
-                   // cell.selectedKey = String(item.id)
+                    if i == 1 {
+                        if cell.selectedValue == ""{
+                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                            cell.selectedKey = String(item.id)
+                            if objData.values[0].name == nil{
+                                valueAAA = objData.values[1].name
+                                
+                            }
+                            else{
+                                valueAAA = objData.values[0].name
+                            }
+                        }else{
+                            cell.oltPopup.setTitle(cell.selectedValue, for: .normal)
+                            //cell.oltPopup.setTitle(item.name, for: .normal)
+                            if isCatTempOnAAA {
+                                //                            cell.selectedKey = String(item.id)
+                            }else{
+                                //                            cell.selectedKey = String(item.id)
+                                
+                            }
+                            if isFromEditAdAAA{
+                                //                         cell.selectedKey = String(item.id)
+                            }
+                            //                         cell.selectedKey = String(item.id)
+                            if objData.values[0].name != nil{
+                                valueAAA = objData.values[0].name
+                                
+                            }
+                            //                        else{
+                            //                            value = objData.values[0].name
+                            //
+                            //                        }
+                            
+                        }
+                        //                    id = objData.values[0].id
+                        // cell.oltPopup.setTitle(item.name, for: .normal)
+                        // cell.selectedKey = String(item.id)
+                    }
+                    i = i + 1
                 }
-                i = i + 1
             }
             
             cell.btnPopUpAction = { () in
@@ -668,26 +662,28 @@ var calledFrom = ""
                 cell.hasCatTemplateArray = []
                 cell.hasTempelateArray = []
                 cell.hasSubArray = []
-                for items in objData.values {
-                    if items.id == "" {
-                        continue
+                if objData.values != nil{
+                    for items in objData.values {
+                        if items.id == "" {
+                            continue
+                        }
+                        cell.dropDownKeysArray.append(String(items.id))
+                        cell.dropDownValuesArray.append(items.name)
+                        cell.hasCatTemplateArray.append(objData.hasCatTemplate)
+                        cell.hasTempelateArray.append(items.hasTemplate)
+                        cell.hasSubArray.append(items.hasSub)
+                        self.idAAA = items.id
+                        
+                        if objData.fieldTypeName == "ad_cats1"{
+                            cell.isBiddingArray.append(items.isBid)
+                            cell.isPayArray.append(items.isPay)
+                            cell.isImageArray.append(items.isImg)
+                            cell.fieldTypeName = objData.fieldTypeName
+                        }
+                        
+                        cell.isShowArr.append(items.isShow)
+                        
                     }
-                    cell.dropDownKeysArray.append(String(items.id))
-                    cell.dropDownValuesArray.append(items.name)
-                    cell.hasCatTemplateArray.append(objData.hasCatTemplate)
-                    cell.hasTempelateArray.append(items.hasTemplate)
-                    cell.hasSubArray.append(items.hasSub)
-                    self.idAAA = items.id
-
-                    if objData.fieldTypeName == "ad_cats1"{
-                        cell.isBiddingArray.append(items.isBid)
-                        cell.isPayArray.append(items.isPay)
-                        cell.isImageArray.append(items.isImg)
-                        cell.fieldTypeName = objData.fieldTypeName
-                    }
-                    
-                     cell.isShowArr.append(items.isShow)
-                   
                 }
                 cell.popupShow()
                 cell.selectionDropdown.show()
@@ -818,11 +814,6 @@ var calledFrom = ""
             }
                 
             else if section == 3 {
-                if indexPath.row == fieldsArray.count{
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "MapviewShowButtonCell", for: indexPath)
-                   return cell
-               }
-                
                 let objData = fieldsArray[indexPath.row]
            
                 if objData.fieldType == "textfield"  {
@@ -884,64 +875,69 @@ var calledFrom = ""
                     }
                     
                     var i = 1
-                    for item in objData.values {
-                        if item.id == "" {
-                            continue
-                        }
-    //                    if (defaults.string(forKey: "value") != nil) {
-    //                        if indexPath.row == selectedIndex {
-    //                            let name = UserDefaults.standard.string(forKey: "value")
-    //                            cell.oltPopup.setTitle(name, for: .normal)
-    //                        }
-    //                    }
-                        if isEditStart == true {
-                        if i == 1 {
-                             print(cell.selectedValue)
-                            if isfromEditAd {
-                                cell.oltPopup.setTitle(item.name, for: .normal)
-                                cell.selectedKey = String(item.id)
-                            }else{
-                               if cell.selectedValue == ""{
-                                    cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
-                                    cell.selectedKey = String(item.id)
-                                }else{
-                                cell.oltPopup.setTitle(objData.fieldVal, for: .normal)
-                                   cell.selectedKey = String(item.id)
-                                }
+                    if objData.values != nil{
+                        for item in objData.values {
+                            
+                            if item.id == "" {
+                                continue
                             }
-                          //  cell.oltPopup.setTitle(item.name, for: .normal)
-                          //  cell.selectedKey = String(item.id)
-                        }
-                        i = i + 1
-                        }else{
+                            //                    if (defaults.string(forKey: "value") != nil) {
+                            //                        if indexPath.row == selectedIndex {
+                            //                            let name = UserDefaults.standard.string(forKey: "value")
+                            //                            cell.oltPopup.setTitle(name, for: .normal)
+                            //                        }
+                            //                    }
+                            if isEditStart == true {
+                                if i == 1 {
+                                    print(cell.selectedValue)
+                                    if isfromEditAd {
+                                        cell.oltPopup.setTitle(item.name, for: .normal)
+                                        cell.selectedKey = String(item.id)
+                                    }else{
+                                        if cell.selectedValue == ""{
+                                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                                            cell.selectedKey = String(item.id)
+                                        }else{
+                                            cell.oltPopup.setTitle(objData.fieldVal, for: .normal)
+                                            cell.selectedKey = String(item.id)
+                                        }
+                                    }
+                                    //  cell.oltPopup.setTitle(item.name, for: .normal)
+                                    //  cell.selectedKey = String(item.id)
+                                }
+                                i = i + 1
+                            }else{
+                                
+                                //                        if isfromEditAd == false{
+                                //                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                                //                            cell.selectedKey = String(item.id)
+                                //                        }else{
+                                //
+                                //                        }
+                                //
+                                
+                                cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
+                                cell.selectedKey = String(item.id)
+                            }
                             
-    //                        if isfromEditAd == false{
-    //                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
-    //                            cell.selectedKey = String(item.id)
-    //                        }else{
-    //
-    //                        }
-    //
-                            
-                            cell.oltPopup.setTitle(objData.values[0].name, for: .normal)
-                            cell.selectedKey = String(item.id)
                         }
-                        
                     }
                     cell.btnPopUpAction = { () in
                         cell.dropDownKeysArray = []
                         cell.dropDownValuesArray = []
                         cell.fieldTypeNameArray = []
-                        for item in objData.values {
-                            if item.id == "" {
-                                continue
+                        if objData.values != nil{
+                            for item in objData.values {
+                                if item.id == "" {
+                                    continue
+                                }
+                                cell.dropDownKeysArray.append(String(item.id))
+                                cell.dropDownValuesArray.append(item.name)
+                                cell.hasFieldsArr.append(item.hasTemplate)
+                                cell.fieldTypeNameArray.append(objData.fieldTypeName)
+                                //                        cell.isShowArr.append(item.isShow)
+                                
                             }
-                            cell.dropDownKeysArray.append(String(item.id))
-                            cell.dropDownValuesArray.append(item.name)
-                            cell.hasFieldsArr.append(item.hasTemplate)
-                            cell.fieldTypeNameArray.append(objData.fieldTypeName)
-    //                        cell.isShowArr.append(item.isShow)
-
                         }
                         cell.accountDropDown()
                         cell.valueDropDown.show()
@@ -949,7 +945,7 @@ var calledFrom = ""
                     cell.param = objData.fieldTypeName
                     cell.selectedIndex = indexPath.row
                     cell.indexP = indexPath.row
-                    cell.section = 2
+                    cell.section = 3
                     cell.fieldNam = objData.fieldTypeName
                     cell.delegate = self
                     
@@ -971,7 +967,7 @@ var calledFrom = ""
                     //cell.delegate = self
                     cell.delegateDes = self
                     cell.index = indexPath.row
-                    cell.section = 2
+                    cell.section = 3
                     return cell
                 }
                     
@@ -1010,7 +1006,7 @@ var calledFrom = ""
                         cell.txtDate.placeholder = title
                     }
                     cell.indexP = indexPath.row
-                    cell.section = 2
+                    cell.section = 3
                     cell.fieldName = objData.fieldTypeName
                     cell.delegate = self
                     
@@ -1027,7 +1023,7 @@ var calledFrom = ""
                     cell.dataArray = objData.values
                     cell.isSelected = objData.tempIsSelected
                     cell.index = indexPath.row
-                    cell.section = 2
+                    cell.section = 3
                     cell.delegate = self
                     radVal(rVal: objData.fieldVal, fieldType: "radio", indexPath: indexPath.row, isSelected: objData.tempIsSelected, fieldNam: objData.fieldTypeName)
                     cell.fieldName = objData.fieldTypeName
@@ -1072,15 +1068,20 @@ var calledFrom = ""
                 
 
             } else if section == 4 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MapViewCell", for: indexPath) as! MapViewCell
-                cell.txtAddress.delegate = self
-                self.mapViewCell = cell
-                self.adForest_populateData1()
-                
-                map.isMyLocationEnabled = true
-                map.settings.myLocationButton = true
-                addMapTrackingButton()
-                return cell
+                if !isMapViewAdd{
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MapviewShowButtonCell", for: indexPath)
+                    return cell
+                } else{
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MapViewCell", for: indexPath) as! MapViewCell
+                    cell.txtAddress.delegate = self
+                    self.mapViewCell = cell
+                    self.adForest_populateData1()
+                    
+                    map.isMyLocationEnabled = true
+                    map.settings.myLocationButton = true
+                    addMapTrackingButton()
+                    return cell
+                }
             }
         }
         return UITableViewCell()
@@ -1135,9 +1136,6 @@ var calledFrom = ""
                 }
             
             } else if section == 3 {
-                if indexPath.row == fieldsArray.count{
-                   return UITableViewAutomaticDimension
-               }
                 let objData = fieldsArray[indexPath.row]
                 if objData.fieldType == "textarea" {
                     height = 250
@@ -1163,7 +1161,11 @@ var calledFrom = ""
                 }
                  
             }else if section == 4{
-                return 805
+                if !isMapViewAdd{
+                   return UITableViewAutomaticDimension
+                }else {
+                    return 805
+                }
             }
             return height
         }
